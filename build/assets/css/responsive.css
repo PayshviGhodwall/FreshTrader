@@ -1,0 +1,875 @@
+
+@media (max-width:1279px) {
+	.container {
+		max-width: 95%;
+	}
+	.product_show_box {
+		margin: 9px;
+		max-width: 17%;
+	}
+}
+
+@media (max-width:1199px) {
+	.product_unit_img span {
+		height: 130px;
+		width: 130px;
+	}
+	.add_product_unit {
+		padding: 20px;
+		border-radius: 10px;
+	}
+	.product_unit_img span img {
+		max-width: 70px;
+	}
+	.product_page .container {
+		max-width: 96%;
+	}
+	.login_page {
+		overflow: hidden;
+	}
+	.login_logo img {
+		max-width: 160px;
+	}
+	.login_logo {
+		margin-top: -30px;
+		margin-bottom: 30px;
+	}
+ 
+	.login_page::after {
+		opacity: 0.2;
+		background-size: cover;
+	}
+	.product_tabs_btn ul li .nav-link img {
+		max-width: 30px;
+	}
+	.product_tabs_btn ul li .nav-link {
+		height: 92px;
+		border-radius: 10px;
+		font-size: 12px;
+		outline: 0;
+	}
+	.product_tabs_btn {
+		padding: 77px 50px 0 0;
+	}
+	.unit_inner_box .unit_single {
+		padding: 11px 7px;
+		font-size: 12px;
+	}
+	.unit_inner_box {
+		height: 190px;
+	}
+	.added_units_box {
+		padding: 14px 20px 40px;
+	}
+	.product_show_box {
+		margin: 9px;
+		max-width: 21%;
+	}
+	.product_show_box span {
+		font-size: 12px;
+	}
+	.Account_settng_page .change_btn {
+		font-size: 12px;
+		padding: 14px 12px;
+	}
+	.pallets_form .pallets_form_btn{
+		right: -7px;
+	}
+	.pallets_form .form-control {
+		padding: 5px 35px 5px 6px;
+		width: 100%;
+	}
+}
+
+@media (max-width:1023px) {
+	.add_business_form .form-control {
+		font-size: 12px;
+		height: 46px;
+		padding: 10px 17px;
+	}
+	.inventory_main table td{
+		white-space: nowrap;
+	}
+	.login_logo img {
+		max-width: 210px;
+	}
+	.login_logo {
+		margin-top: 0;
+		margin-bottom: 40px;
+	}
+	.login_page {
+		padding: 26px 0;
+	}
+	.container {
+		max-width: 720px;
+	}
+	.product_tabs_btn {
+		padding: 40px 0 0;
+	}
+	.product_tabs_btn .nav-tabs {
+		flex-wrap: nowrap;
+		overflow-x: scroll;
+		width: 100%;
+	}
+	.product_tabs_btn .nav-tabs::-webkit-scrollbar {
+		display: none;
+	}
+	.product_tabs_btn ul li .nav-link {
+		height: 40px;
+		border-radius: 5px;
+		font-size: 13px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		white-space: nowrap;
+		padding: 0 45px;
+	}
+	.product_tabs_btn ul li .nav-link span {
+		display: block;
+		margin-bottom: 0;
+		margin-right: 8px;
+	}
+	.product_tabs_btn ul li .nav-link img {
+		max-width: 20px;
+	}
+	.product_tabs_btn ul li {
+	    width: 100%;
+		margin-bottom: 5px;
+		margin-right: 12px;
+	}
+	.product_tabs_btn ul li:last-child {
+		margin-right: 0;
+	}
+	.product_main_outer {
+		border: 5px solid #5f6874;
+		border-radius: 6px;
+		margin: 0 auto;
+	}
+	.header_logo img { 
+		max-width: 180px;
+	}
+	.input_sale_value {
+		font-size: 13px;
+	}
+	.product_show_box span {
+		font-size: 13px;
+	}	
+	.product_show_box {
+		margin: 7px;
+		max-width: 23%;
+	}
+	.pallets_out{ 
+		line-height: 17px;
+		width: 100%;
+	}
+	.filter_btn { 
+		border-radius: 7px;  
+		height: 40px;
+		font-size: 22px;
+		margin: 0 2px;
+		width: 40px;
+	}
+	.sale_filter_outer {
+		margin: 0;
+		display: flex;
+		flex-wrap: nowrap;
+		overflow: auto;
+	}
+	.sale_filter_outer::-webkit-scrollbar{
+		display: none;
+	}
+	.tables_btns {
+		padding: 7px 14px;
+	}
+	.transactions_main table td{
+		white-space: nowrap;
+	}
+	.transactions_details .table-responsive {
+		padding: 15px 20px;
+	}
+	.transactions_details .product_comman_btn { 
+		margin-bottom: 0; 
+		margin-top: 20px;
+	}
+	.comman_table_design table tr td{
+		white-space: nowrap;
+		font-size: 13px;
+	}
+	.consignment_form .form_tag {
+		color: #fff;
+		font-size: 12px;
+	}
+	.heading_check {
+		font-size: 14px;
+	}
+	.consiment-check label {
+		font-size: 12px;
+	}
+	.consignment_form_bottom .consiment-check {
+		display: flex;
+		justify-content: flex-end;
+	}
+	.consignment_form_bottom .consiment-check label::after {
+		top: -9px;
+		right: -10px;
+	}
+	.consignment_form_bottom .consiment-check label::before {
+		left: auto;
+		right: 0px;
+	}
+	.consignment_form_bottom .consiment-check label {
+		padding-left: 0;
+		padding-right: 40px;
+		text-align: right;
+	}
+	.comman_table_design table th{
+		font-size: 13px;
+	}
+	.order_top_box span {
+		font-size: 13px;
+	}
+	.order_top_box strong {
+		font-size: 13px;
+	}
+}
+
+@media (max-width:767px) {
+	.smcs_form_part label {
+		font-size: 13px;
+	}
+	.container {
+		max-width: 100%;
+	}
+	.login_logo img {
+		max-width: 170px;
+	}
+	.loging_head h1 {
+		margin-bottom: 14px;
+		font-size: 22px;
+	}
+	.loging_head span,
+	.login_page_form .form-group label {
+		font-size: 14px;
+	}
+	.login_page_form .form-control {
+		height: 46px;
+		border-radius: 6px;
+		padding: 0 18px;
+		font-size: 13px;
+	}
+	.login_page_form .form-group {
+		margin-bottom: 16px;
+	}
+	.form-content p {
+		font-size: 14px;
+	}
+	.login_page {
+		padding: 0;
+		height: 100vh;
+	}
+	.header_logo img {
+		display: block;
+		max-width: 178px;
+	}
+	.profile_dropdown button {
+		text-indent: -1520px;
+	}
+	.header {
+		padding: 8px 0;
+		border-bottom: 5px solid #5f6874;
+	}
+	.menus_toggle img {
+		max-width: 40px;
+	}
+	.profile_dropdown button span {
+		margin: 0;
+	}
+	.menus_toggle {
+		padding: 0;
+	}
+	.header_menus_moadl {
+		height: calc(100vh - 78px);
+		top: auto;
+		bottom: 0;
+	}
+	.header_menus_box {
+		padding: 15px;
+		border-radius: 15px;
+	}
+	.header_menus_box .menus_icon {
+		height: 55px;
+		width: 55px;
+	}
+	.header_menus_box h2 {
+		line-height: 18px;
+		font-size: 14px;
+		margin-top: 12px;
+	}
+	.header_menus_box .menus_icon img {
+		max-width: 31px;
+	}
+	.product_tabs_btn ul li .nav-link {
+		padding: 0 18px;
+	}
+	.product_tabs_btn {
+		padding: 20px 0 0;
+	}
+	.product_search .form-control {
+	    font-size: 13px;
+		padding: 0 14px;
+		height: 38px;
+	}
+	.search_btn img {
+		max-width: 18px;
+	}
+	.Toggle_chekbox label {
+		font-size: 12px;
+		padding-right: 17px;
+	}
+	.product_top_btns a {
+		padding: 9px 13px;
+		border-radius: 50px;
+		font-size: 13px;
+		font-weight: 500;
+		margin-left: 3px;
+		text-indent: -5190px;
+		height: 30px;
+		width: 30px;
+	}
+	.product_top_btns a img {
+		max-height: 16px;
+		margin-right: 0;
+	}
+	.product_main_top {
+		padding: 12px 15px;
+		border-bottom: 3px solid #5f6874;
+	}
+	.choose_heading h3 {
+		font-size: 13px;
+	}
+	.choose_heading h3 span {
+		font-size: 10px;
+		padding-left: 0;
+		text-align: left;
+	}
+	.show_all {
+		font-size: 11px;
+	}
+	.unit_box span {
+		height: 90px;
+		width: 90px;
+	}
+	.unit_box span img {
+		max-width: 46px;
+	}
+	.setting_box {
+		padding: 18px;
+	}
+	.setting_img {
+		height: 110px;
+		width: 110px;
+	}
+	.setting_img img {
+		max-width: 57px;
+	}
+	.setting_box_img strong {
+		margin-top: 12px;
+		font-size: 14px;
+		margin-bottom: 14px;
+	}
+	.settings_tabls tr td {
+		padding: 5px 16px;
+		white-space: nowrap;
+	}
+	.Toggle_chekbox label::after {
+		top: 9px;
+		right: -42px;
+		width: 40px;
+		height: 19px;
+	}
+	.Toggle_chekbox label::before {
+		top: 7px;
+		right: -21px;
+		width: 22px;
+		height: 23px;
+	}
+	.Toggle_chekbox input:checked~label::before {
+		right: -44px;
+		background-color: #fff;
+	}
+	.Toggle_chekbox_changes label::after {
+		right: -15px;
+		top: 9px;
+	}
+	.Toggle_chekbox_changes label::before {
+		top: 7px;
+		right: 7px;
+	}
+	.Toggle_chekbox_changes input:checked~label::before {
+		right: -19px;
+	}
+	.add_product_box {
+		border-radius: 18px;
+		padding: 22px;
+	}
+	.Product_heading h2 {
+		margin-bottom: 20px;
+		font-size: 17px;
+	}
+	.add_product_box .form-select {
+		height: 46px;
+		padding: 8px 21px;
+		border-radius: 8px;
+		font-size: 13px;
+		background-position: 92%;
+	}
+	.add_product_box .form-group {
+		margin-bottom: 12px;
+	}
+	.product_checkbox label::after {
+		position: absolute;
+		content: '';
+		top: -1px;
+		right: -34px;
+		height: 22px;
+		width: 22px;
+	}
+	.product_checkbox label::before {
+		top: 4px;
+		right: -29px;
+		height: 12px;
+		width: 12px;
+	}
+	.product_unit_img span {
+		height: 100px;
+		width: 100px;
+		margin: 0 auto 10px;
+	}
+	.product_unit_img span img {
+		max-width: 50px;
+	}
+	.product_unit_img strong {
+		font-size: 13px;
+	}
+	.added_units_box {
+		padding: 3px 14px 20px;
+	}
+	.added_unit {
+		font-size: 14px;
+	}
+	.added_units_box {
+		padding: 8px 14px 20px;
+	}
+	.unit_inner_box {
+		height: 210px;
+	}
+	.added_units_box .custom_btns {
+		font-size: 13px;
+	}
+	.add_product_unit .border-end {
+		border: 0 !important;
+	}
+	.unit_heading strong {
+		font-size: 14px;
+	}
+	.add_business_box {
+		padding: 25px;
+	}
+	.form_tag {
+		color: #fff;
+		font-size: 14px;
+	}
+	.product_page .product_show_top .product_comman_btn {
+		width: 44%;
+		margin: 0 5px 6px !important;
+	}
+	.product_page .comman_dropdown {
+		width: 44%;
+		margin: 0 5px 6px !important;
+	}
+	.product_page  .comman_dropdown button {
+		width: 100%;
+		margin: 0;
+		font-size: 13px;
+	}
+	.customer_btn {
+		margin: 0;
+		width: 100%;
+		font-size: 13px;
+	}
+	.product_comman_btn{
+		font-size: 13px;
+	}
+	.product_show_box {
+		margin: 8px;
+		max-width: 44%;
+	}
+	.product_show{
+		justify-content: center;
+	}
+	.order_bill_head {
+		padding: 10px 20px; 
+	}
+	.order_bill_head span {
+		display: block;
+	}
+	.bill_details {
+		padding: 13px;
+	}
+	.top_details {
+		font-size: 12px;
+	}
+	.mid_details {
+		font-size: 12px;
+	}
+	.pallets_out br {
+		display: none;
+	}
+	.pallets_out {
+		line-height: 17px;
+		width: 100%;
+		font-size: 13px;
+		height: 41px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.refund_print span {
+		font-size: 12px;
+	}
+	.refund_print .border-end {
+		border-right: 0 !important;
+	}
+	.refund_print .col-md-3:first-child , .refund_print .col-md-3:last-child{
+		background-color: #fff;
+	}
+	.refund_print {
+		border-radius: 6px;
+		overflow: hidden;
+	}
+	.comman_bill_head strong {
+		font-size: 12px;
+	}
+	.custom_btns {
+		font-size: 14px;
+	}
+	.pay_refund_print {
+		padding: 10px 2px 20px;
+	}
+	.pay_refund_method {
+		padding: 14px 5px;
+	}
+	.business_sale_data {
+		height: auto;
+		padding: 15px 15px;
+	}
+	.business_sale_data .business_sale_btn {
+		padding: 16px 11px;
+		transition: 0.5s all;
+		font-size: 13px;
+	}
+	.filter_btn {
+		font-size: 18px;
+	}
+	.btns-part {
+		width: 100%;
+		margin-bottom: 10px;
+		font-size: 14px;
+	}
+	.product_artboard .modal-dialog , .pattels_out .modal-dialog {
+		max-width: 94%;
+		margin: 12px auto;
+	}
+	.artboard_table tr td span {
+		font-size: 13px;
+		padding: 8px 20px;
+		border-radius: 6px;
+	}
+	.artboard_table tr th {
+		font-size: 14px;
+		padding: 0 16px 5px;
+	}
+	.artboard_form .form-group label {
+		font-size: 14px;
+	}
+	.artboard_form tr th {
+		font-size: 13px;
+		padding: 0 8px 10px;
+	}
+	.artboard_form .form-select {
+		height: 40px;
+	}
+	.keyboard_btn, .pattels_out_form .button, .pattels_out_form .form-control {
+		height: 50px;
+		font-size: 17px;
+	}
+	.delete_btn_calcu, .add_btn_calcu , .same_arrow {
+		font-size: 14px;
+		padding: 15px 20px;
+		height: auto;
+		width: 45%;
+		margin: 0 5px;
+	}
+	.same_arrow img {
+		width: auto;
+		max-width: 100%;
+	}
+	.Undo_button {
+		font-size: 14px;
+		padding: 15px 20px;
+		height: auto;
+		width: 100%;
+		margin: 10px 9px 0;
+	}
+	.delevery_note_form label {
+		font-size: 13px;
+		margin-bottom: 11px;
+	}
+	.amed { 
+		font-size: 12px; 
+		padding: 6px 13px; 
+	}
+	.delete_btnns img {
+		max-width: 30px;
+	}
+	.bill_details_mainn {
+		max-height: 210px; 
+	}
+	.Toggle_chekbox_design label::after {
+		top: 0;
+	}
+	.Toggle_chekbox_design label::before {
+		top: -2px;
+	}
+	.inventory_main table tr td:nth-child(1), .inventory_main table tr td:nth-child(2), .inventory_main table tr td:nth-child(3) {
+		border: 0;
+		vertical-align: middle;
+		text-align: left;
+		font-size: 13px;
+		position: relative;
+	}
+	.transactions_main table td {
+		font-size: 13px;
+		padding: 12px 11px;
+	}	
+	.tables_btns {
+		padding: 5px 14px;
+		font-size: 12px;
+	}
+	.table_dropdown button img {
+		max-width: 16px;
+	}	
+	.transactions_section .comman_dropdown button {
+		font-size: 13px;
+		width: 100%;
+	}
+	.export {
+		color: #fff;
+		font-size: 13px;
+	}
+	.transactions_details .table-responsive {
+		padding: 13px 15px;
+	}
+	.transactions_details .table tr th {
+		font-size: 14px;
+		padding: 12px 10px 18px;
+	}
+	.transactions_details .table tr td {
+		white-space: nowrap;
+		font-size: 13px;
+	}
+	.Price_box {
+		font-size: 13px;
+		padding: 9px 16px;
+		text-align: center;
+	}
+	.transactions_details .product_comman_btn {
+		margin-bottom: 0;
+		margin-top: 13px;
+		font-size: 13px;
+	}
+	.customer_top_box strong {
+		font-size: 13px;
+	}
+	.form_customer_files {
+		border-radius: 7px;
+		height: auto;
+		padding: 8px 0;
+	}
+	.form_customer_files .form-control {
+		background: #5f687430;
+		padding: 10px 15px;
+		font-size: 13px;
+		height: auto;
+		margin-bottom: 8px;
+	}
+	.form_customer_files label {
+		font-size: 13px;
+		padding: 0px 4px 16px;
+	}
+	.form_customer_files{
+		position: relative;
+	}
+	.edit {
+		position: absolute;
+		top: 10px;
+		z-index: 1;
+		right: 16px;
+	}
+	.edit img {
+		max-width: 23px;
+	}
+	.customer_top_box {
+		padding: 15px 8px;
+	}
+	.form_tag br {
+		display: none;
+	}
+	.Account_settng_page .Toggle_chekbox.Toggle_chekbox_design {
+		margin-top: -10px;
+		margin-left: -20px;
+	}
+	.comman_table_design table tr td {
+		font-size: 13px;
+		padding: 15px 15px;
+	}
+	.icon_design {
+		height: 35px;
+		width: 35px;
+		border-radius: 5px;
+	}
+	.icon_design img {
+		display: block;
+		max-width: 15px;
+	}
+	.add_supplier_modal .modal-body {
+		padding: 20px;
+	}
+	.add_supplier_modal .modal-dialog {
+		max-width: 95%;
+	}
+	.stations_box .custom_btns br{
+		display: none;
+	}
+	.stations_box .custom_btns{
+		margin-top: 10px;
+	}
+	.partner_header {
+		font-size: 13px;
+		font-weight: 400;
+	}
+	.table_toggle_radio label::after {
+		top: -12px;
+		width: 44px;
+		height: 18px;
+	}
+	.table_toggle_radio label::before { 
+		top: -14px;
+		right: 28px;
+		width: 22px;
+		height: 22px; 
+	}
+	.table_input {
+		max-width: 100%;
+		width: 110px;
+	}
+	.table_comman_btn{
+		font-size: 12px;
+	}
+	.table_input {
+		height: 35px;
+		font-size: 12px;
+	}
+	.comman_table_design table th , .inventory_main table th, .transactions_main table th{
+		font-size: 13px;
+	}
+	.purchses_page .comman_dropdown button {
+		width: 100%;
+	}
+	.consiment-check label::before {
+		top: 1px;
+		left: 8px;
+		height: 14px;
+		width: 14px;
+	}
+	.consiment-check label::after {
+		top: -7px;
+		left: 0;
+		height: 30px;
+		width: 30px;
+	}
+	.consiment-check label{
+		padding-left: 40px;
+	}
+	.consignment_form .invisible {
+		display: none;
+	}
+	.consignment_form_bottom{
+		margin: 0;
+	}
+	.consignment_form_bottom .consiment-check label {
+		padding-left: 0;
+		padding-right: 30px;
+		text-align: right;
+	}
+	.consignment_form_bottom .consiment-check label::after {
+		top: -6px;
+		right: -9px;
+	}
+	.add_product_modal .modal-dialog {
+		max-width: 97%;
+		margin: 10px auto;
+	}
+	.modal-title {
+		font-size: 15px;
+	}
+	.add_product_modal .modal-header .btn-close {
+		position: absolute !important;
+		right: 10px !important;
+		top: 10px !important;
+		background-size: 12px;
+	}
+	.add_consignment_table table tr .consignment-product {
+		border: 0;
+		padding: 30px 0 50px;
+	}
+	.smcs_btn .product_comman_btn {
+		width: 100%;
+		padding: 10px 0px;
+		margin: 0;
+		font-size: 13px;
+		line-height: 18px;
+	}
+	.consiment_data_box { 
+		padding: 5px 20px;
+		font-size: 13px; 
+		border-radius: 5px;
+		width: 80px;
+		text-align: center;
+	}
+	.pallets_form label {
+		line-height: 19px;
+		font-size: 14px;
+	}
+	.pallets_form label br{
+		display: none;
+	}
+	.pallets_form .pallets_form_btn {
+		right: 0;
+	}
+	.notification_box {
+		padding: 20px 14px;
+	}
+	.notification_box label {
+		color: #fff;
+		font-size: 14px;
+	}
+	.orders_box_main span {
+		min-height: auto;
+		font-size: 16px;
+		margin-bottom: 40px;
+	}
+	.orders_box_main {
+		padding: 35px 20px;
+	}
+}
