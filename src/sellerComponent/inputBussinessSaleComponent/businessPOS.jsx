@@ -748,7 +748,7 @@ function BusinessPOS() {
                                           type="checkbox"
                                           id="Print"
                                           name="Print"
-                                          value="Bike"
+                                          value="Print"
                                           onChange={(e) =>
                                             setPrint(
                                               e.target.checked ? "Invoice" : ""

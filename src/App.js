@@ -70,6 +70,10 @@ import UnAuth from "./sellerComponent/commonComponent/unAuth";
 import CustomerFile from "./sellerComponent/accountingComponent/customerFile";
 import ViewTransaction from "./sellerComponent/accountingComponent/viewTransaction";
 import ViewTransactionPaid from "./sellerComponent/accountingComponent/viewTransactionPaid";
+import Welcome from "./buyerComponent/welcome";
+import BuyerLogin from "./buyerComponent/buyerLogin";
+import BuyerSignup from "./buyerComponent/buyerSignup";
+import FaqScreen from "./buyerComponent/faqScreen";
 
 function App() {
   const [staff, setStaff] = useState("");
@@ -208,6 +212,8 @@ function App() {
           <Route path="/" element={<MainHeader />} />
           <Route path="/un-Authorized" element={<UnAuth />} />
 
+          {/* Admin Routes */}
+
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route
             path="/admin/forgot-password"
@@ -232,6 +238,13 @@ function App() {
             path="/admin/subscription-detail/:id"
             element={<SubscriptionDetail />}
           />
+
+          {/* Buyer Routes */}
+
+          <Route path="/buyer/welcome-screen" element={<Welcome />} />
+          <Route path="/buyer/login" element={<BuyerLogin />} />
+          <Route path="/buyer/signup" element={<BuyerSignup />} />
+          <Route path="/buyer/faq-screen" element={<FaqScreen />} />
         </Routes>
       </BrowserRouter>
     </>
