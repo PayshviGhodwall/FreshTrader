@@ -74,6 +74,8 @@ import Welcome from "./buyerComponent/welcome";
 import BuyerLogin from "./buyerComponent/buyerLogin";
 import BuyerSignup from "./buyerComponent/buyerSignup";
 import FaqScreen from "./buyerComponent/faqScreen";
+import ProtectedRoutes from "./sellerComponent/commonComponent/protectedRoutes";
+import PrivateRoute from "./sellerComponent/commonComponent/protectedRoutes";
 
 function App() {
   const [staff, setStaff] = useState("");
@@ -95,6 +97,9 @@ function App() {
 
       <BrowserRouter>
         <Routes>
+          <Route exact path="/" element={<PrivateRoute />}>
+            <Route exact path="/" element={<MainHeader />} />
+          </Route>
           <Route path="/login" element={<Login />} />
           {staff?.access?.includes(5) || !staff ? (
             <>
@@ -209,7 +214,7 @@ function App() {
           <Route path="/support" element={<SupportListing />} />
 
           <Route path="/logout" element={<Logout />} />
-          <Route path="/" element={<MainHeader />} />
+
           <Route path="/un-Authorized" element={<UnAuth />} />
 
           {/* Admin Routes */}
