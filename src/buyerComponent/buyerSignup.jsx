@@ -30,7 +30,7 @@ function BuyerSignup() {
             <header class="freshtrader_header">
               <div class="row w-100 align-items-center">
                 <div class="col-auto">
-                  <Link class="back-btn" to="/buyer/welcome">
+                  <Link class="back-btn" to="/buyer/welcome-screen">
                     <img src="../assets/img/back-btn.png" alt="" />
                   </Link>
                 </div>
@@ -134,6 +134,28 @@ function BuyerSignup() {
                       <p className="form-error mt-2">This field is required</p>
                     )}
                   </div>
+                  <div class="form-group col-12 mb-4">
+                    <select
+                      class="buyer-form-control"
+                      aria-label="Default select example"
+                      id="market"
+                      name="market"
+                      {...register("market", {
+                        required: true,
+                      })}
+                    >
+                      <option value="">Select</option>
+                      <option value="Sydney Produce and Growers Market">
+                        Sydney Produce & Growers Market
+                      </option>
+                      <option value="Sydney Flower Market">
+                        Sydney Flower Market
+                      </option>
+                    </select>
+                    {errors?.market && (
+                      <p className="form-error mt-2">This field is required</p>
+                    )}
+                  </div>
                   <div class="form-group col-12 mb-4 custom_check_outer">
                     <label class="content-label">
                       Is Your Business part of SMCS?
@@ -185,7 +207,6 @@ function BuyerSignup() {
                           id="checks1"
                           name="market"
                           value="Free"
-                          {...register("market", { required: true })}
                         />
                         <label for="checks1">
                           <span>
@@ -193,11 +214,6 @@ function BuyerSignup() {
                           </span>
                           Free
                         </label>
-                        {errors?.market && (
-                          <p className="form-error mt-2">
-                            This field is required
-                          </p>
-                        )}
                       </div>
                       <div class="form-group col-4 px-1 box_checkbox">
                         <input
@@ -207,7 +223,6 @@ function BuyerSignup() {
                           name="market"
                           value="Small Business
                           "
-                          {...register("market", { required: true })}
                         />
                         <label for="checks2">
                           <span>
@@ -218,13 +233,12 @@ function BuyerSignup() {
                       </div>
                       <div class="form-group col-4 ps-1 box_checkbox">
                         <input
-                          type="radio"
                           checked
+                          type="radio"
                           class="d-none"
                           id="checks3"
                           name="market"
                           value="Enterprise"
-                          {...register("market", { required: true })}
                         />
                         <label for="checks3">
                           <span>
