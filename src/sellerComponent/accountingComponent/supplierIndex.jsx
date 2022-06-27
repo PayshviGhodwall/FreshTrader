@@ -169,7 +169,7 @@ function SupplierIndex() {
                         autoComplete="off"
                       />
                       <button className="search_btn" type="submit">
-                        <img src="assets/img/Search.png" alt="Search" />
+                        <img src="../assets/img/Search.png" alt="Search" />
                       </button>
                     </div>
                   </div>

@@ -11,7 +11,7 @@ function Eod() {
   }, []);
 
   const eodReport = async () => {
-    const { data } = await getEndOfDayReport(date);
+    const { data } = await getEndOfDayReport({ date });
     if (!data.error) {
       setData(data.results.report);
     }

@@ -5,16 +5,27 @@ import {
   printInventory,
   resetCarryOver,
   resetInventory,
+  updateOverselling,
 } from "../../apiServices/sellerApiHandler/inventoryApiHandler";
 import { Link } from "react-router-dom";
+import { getSellerData } from "../../apiServices/sellerApiHandler/loginApiHandler";
 function Inventory() {
   const [inventory, setInventory] = useState([]);
   const [variety, setVariety] = useState([]);
   const [search, setSearch] = useState("");
   const [overselling, setOverselling] = useState(false);
+
   useEffect(() => {
     getInventoryList();
+    getsellerInfo();
   }, [search, overselling]);
+
+  const getsellerInfo = async () => {
+    const { data } = await getSellerData();
+    if (!data.error) {
+      setOverselling(data.results.seller.allow_overselling);
+    }
+  };
 
   const getInventoryList = async () => {
     const formData = {
@@ -111,6 +122,20 @@ function Inventory() {
       total = units.reduce(function (a, b) {
         return a + b.remaining;
       }, 0);
+    } else if (i === 7) {
+      total = units.reduce(function (a, b) {
+        return a + b.physical_stock ? b.physical_stock : 0;
+      }, 0);
+    } else if (i === 8) {
+      total = units.reduce(function (a, b) {
+        return a + b.physical_stock ? b.physical_stock : 0;
+      }, 0);
+
+      let rem = units.reduce(function (a, b) {
+        return a + b.remaining;
+      }, 0);
+
+      total = rem - total;
     }
     return total;
   };
@@ -138,6 +163,15 @@ function Inventory() {
     await printInventory(formData);
   };
 
+  const onOverselling = async (value) => {
+    const formData = {
+      allow_overselling: value,
+    };
+    const { data } = await updateOverselling(formData);
+    if (!data.error) {
+      setOverselling(value);
+    }
+  };
   return (
     <>
       <Header />
@@ -268,7 +302,7 @@ function Inventory() {
                         type="checkbox"
                         id="overselling"
                         checked={overselling}
-                        onChange={() => setOverselling(!overselling)}
+                        onChange={() => onOverselling(!overselling)}
                       />
                       <label for="overselling">Allow Overselling: </label>
                     </div>
@@ -473,7 +507,15 @@ function Inventory() {
                                         : ""
                                     }
                                   >
-                                    +
+                                    {item3.consignment
+                                      ? item3.physical_stock
+                                        ? item3.physical_stock
+                                        : item3.remaining
+                                      : getTotal(
+                                          item2.productId.type._id,
+                                          item2.productId.units._id,
+                                          7
+                                        )}
                                   </td>
                                   <td
                                     className={
@@ -482,7 +524,16 @@ function Inventory() {
                                         : ""
                                     }
                                   >
-                                    -
+                                    {item3.consignment
+                                      ? item3.remaining -
+                                        (item3.physical_stock
+                                          ? item3.physical_stock
+                                          : item3.remaining)
+                                      : getTotal(
+                                          item2.productId.type._id,
+                                          item2.productId.units._id,
+                                          8
+                                        )}
                                   </td>
                                 </tr>
                               ));

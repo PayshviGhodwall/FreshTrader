@@ -188,7 +188,7 @@ export async function getMyProducts(formData, search, filter) {
       {
         supplierId: formData,
         search: search,
-        filter: filter,
+        filterBy: filter,
       }
     );
     console.log(data);

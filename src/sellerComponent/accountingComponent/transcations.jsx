@@ -791,22 +791,22 @@ function Transcations() {
                                                       ${product.total}
                                                     </td>
                                                   </tr>
-                                                  <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>Total:</td>
-                                                    <td
-                                                      style={{
-                                                        textAlign: "center",
-                                                      }}
-                                                    >
-                                                      ${item.total}
-                                                    </td>
-                                                  </tr>
                                                 </>
                                               )
                                             )}
+                                            <tr>
+                                              <td></td>
+                                              <td></td>
+                                              <td></td>
+                                              <td>Total:</td>
+                                              <td
+                                                style={{
+                                                  textAlign: "center",
+                                                }}
+                                              >
+                                                ${item.total}
+                                              </td>
+                                            </tr>
                                           </tbody>
                                         </table>
                                       </div>

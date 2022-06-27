@@ -81,3 +81,20 @@ export async function addNewBusiness(formData) {
     return { error };
   }
 }
+export async function updateOverselling(formData) {
+  try {
+    const { data } = await httpService.post(
+      `${process.env.REACT_APP_APIENDPOINT}/seller/updateOverselling`,
+      formData
+    );
+    console.log(data);
+    if (!data.error) {
+      toast.success(data.message);
+    } else toast.error(data.message);
+
+    return { data };
+  } catch (error) {
+    if (error.response) toast.error(error.response.data.message);
+    return { error };
+  }
+}

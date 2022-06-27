@@ -208,9 +208,15 @@ function App() {
           <Route path="/partner-buyers" element={<PartnerBuyers />} />
           <Route path="/salesman" element={<Salesman />} />
           <Route path="/add-support" element={<Support />} />
-          <Route path="/add-staff" element={<AddStaff />} />
-          <Route path="/staff" element={<StaffListing />} />
-          <Route path="/edit-staff/:id" element={<EditStaff />} />
+          {!staff ? (
+            <>
+              <Route path="/add-staff" element={<AddStaff />} />
+              <Route path="/staff" element={<StaffListing />} />
+              <Route path="/edit-staff/:id" element={<EditStaff />} />{" "}
+            </>
+          ) : (
+            <Route path="/staff" element={<UnAuth />} />
+          )}
           <Route path="/support" element={<SupportListing />} />
 
           <Route path="/logout" element={<Logout />} />

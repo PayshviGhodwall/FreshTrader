@@ -124,7 +124,7 @@ function ViewTransactionPaid() {
                               {item.productId.type.type}, (
                               {item.productId.units.unit})
                             </td>
-                            <td>${item.quantity}</td>
+                            <td>{item.quantity}</td>
                             <td>${item.price}</td>
                             <td>${item.total}</td>
                           </tr>

@@ -15,6 +15,8 @@ function AccountSettingForm3() {
   const [a4, setA4] = useState("");
   const [receipt, setReceipt] = useState(false);
   const [isA4, setIsA4] = useState(false);
+  const [data, setData] = useState("");
+  const [foodLogo, setFoodLogo] = useState("");
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -23,7 +25,7 @@ function AccountSettingForm3() {
     formData.append("a4_invoice_logo", a4);
     formData.append("receipt", receipt);
     formData.append("a4", isA4);
-    formData.append("include_food_saftey_logo", data.include_food_saftey_logo);
+    formData.append("include_food_saftey_logo", foodLogo);
     console.log(data.thermal_receipt_invoice_logo);
 
     const response = await updateSellerInfo3(formData);
@@ -42,8 +44,6 @@ function AccountSettingForm3() {
     }
   };
 
-  const [data, setData] = useState("");
-
   useEffect(() => {
     getsellerInfo();
   }, []);
@@ -60,6 +60,7 @@ function AccountSettingForm3() {
       console.log(
         data.results.seller.thermal_receipt_invoice_logo.split("/")[4]
       );
+      setFoodLogo(data.results.seller.include_food_saftey_logo);
 
       let defaultValues = {};
       defaultValues.include_food_saftey_logo =
@@ -158,16 +159,14 @@ function AccountSettingForm3() {
                   <span className="text-white">:</span>
                 </div>
                 <div className="col-md-6">
-                  <div className="Toggle_chekbox Toggle_chekbox_design">
+                  <div className="Toggle_chekbox_1 Toggle_chekbox_design">
                     <input
                       className="d-none"
                       type="checkbox"
                       id="include_food_saftey_logo"
                       name="include_food_saftey_logo"
-                      {...register("include_food_saftey_logo", {
-                        required: true,
-                      })}
-                      checked={data.include_food_saftey_logo}
+                      onChange={(e) => setFoodLogo(e.target.checked)}
+                      checked={foodLogo}
                     />
                     <label for="include_food_saftey_logo"></label>
                   </div>
