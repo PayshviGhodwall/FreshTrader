@@ -450,7 +450,7 @@ function Product() {
                         </div>
                       </div>
                       <div className="col">
-                        <div className="form-group Toggle_chekbox d-flex justify-content-xl-center justify-content-lg-start justify-content-md-start justify-content-start">
+                        <div className="form-group Toggle_chekbox_1 d-flex justify-content-xl-center justify-content-lg-start justify-content-md-start justify-content-start">
                           <input
                             className="d-none"
                             type="checkbox"
@@ -776,7 +776,7 @@ function Product() {
                                               </a>
                                             </td>
                                             <td>
-                                              <div className="form-group Toggle_chekbox Toggle_chekbox_changes d-flex justify-content-center">
+                                              <div className="form-group Toggle_chekbox_1 Toggle_chekbox_changes d-flex justify-content-center">
                                                 <input
                                                   className="d-none"
                                                   type="checkbox"
@@ -1087,7 +1087,13 @@ function Product() {
                             <td></td>
                             <td></td>
                             <td>
-                              <Link className="table_small_btn w-100" to="">
+                              <Link
+                                className="table_small_btn w-100"
+                                to=""
+                                id="exampleModal"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              >
                                 Save
                               </Link>
                             </td>

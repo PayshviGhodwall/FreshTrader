@@ -78,3 +78,49 @@ export async function sendCounterOffer(formData) {
     return { error };
   }
 }
+
+export async function changeOrderNotification(formData) {
+  try {
+    const { data } = await httpService.post(
+      `${process.env.REACT_APP_APIENDPOINT}/seller/changeOrderNotification`,
+      formData
+    );
+    console.log(data);
+
+    if (!data.error) {
+      toast.success(data.message);
+    } else toast.error(data.message);
+
+    return { data };
+  } catch (error) {
+    if (error.response) toast.error(error.response.data.message);
+    return { error };
+  }
+}
+
+export async function getOrderNotification() {
+  try {
+    const { data } = await httpService.get(
+      `${process.env.REACT_APP_APIENDPOINT}/seller/getOrderNotification`
+    );
+    console.log(data);
+
+    return { data };
+  } catch (error) {
+    if (error.response) toast.error(error.response.data.message);
+    return { error };
+  }
+}
+export async function getOrderCount() {
+  try {
+    const { data } = await httpService.get(
+      `${process.env.REACT_APP_APIENDPOINT}/seller/getOrderCount`
+    );
+    console.log(data);
+
+    return { data };
+  } catch (error) {
+    if (error.response) toast.error(error.response.data.message);
+    return { error };
+  }
+}

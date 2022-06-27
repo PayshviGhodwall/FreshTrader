@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  changeOrderNotification,
+  getOrderNotification,
+} from "../../apiServices/sellerApiHandler/orderApiHandler";
 import Header from "../commonComponent/header";
 
 function Notifications() {
+  const [noti, setNoti] = useState("");
+  useEffect(() => {
+    getNotify();
+  }, []);
+
+  const getNotify = async () => {
+    const { data } = await getOrderNotification();
+    if (!data.error) {
+      setNoti(data.results.notification);
+    }
+  };
+
+  const onChangeValue = async (value, no) => {
+    console.log(value, no);
+    let notification = { ...noti };
+    if (no === 1) notification.notify_new_order = value;
+    else if (no === 2) notification.notify_declined_offer = value;
+    else if (no === 3) notification.notify_confirmed_offer = value;
+    else if (no === 4) notification.notify_cancel_order = value;
+
+    const { data } = await changeOrderNotification(notification);
+    if (!data.error) {
+    }
+    await getNotify();
+  };
+
   return (
     <>
       <Header />
@@ -9,10 +40,10 @@ function Notifications() {
         <div class="container">
           <div class="row py-3 align-items-center">
             <div class="col-auto">
-              <a class="product_comman_btn m-0" href="javascript:;">
+              <Link class="product_comman_btn m-0" to="/orders">
                 <img src="assets/img/arrow-left-line.png" alt="Back" />
                 Back
-              </a>
+              </Link>
             </div>
           </div>
           <div class="row py-md-5 py-4 justify-content-center">
@@ -26,7 +57,13 @@ function Notifications() {
                       </div>
                       <div class="col-4 text-center">
                         <div class="table_toggle_radio">
-                          <input class="d-none" type="checkbox" id="check1" />
+                          <input
+                            class="d-none"
+                            type="checkbox"
+                            id="check1"
+                            checked={noti.notify_new_order}
+                            onChange={(e) => onChangeValue(e.target.checked, 1)}
+                          />
                           <label for="check1"></label>
                         </div>
                       </div>
@@ -39,7 +76,13 @@ function Notifications() {
                       </div>
                       <div class="col-4 text-center">
                         <div class="table_toggle_radio">
-                          <input class="d-none" type="checkbox" id="check2" />
+                          <input
+                            class="d-none"
+                            type="checkbox"
+                            id="check2"
+                            checked={noti.notify_declined_offer}
+                            onChange={(e) => onChangeValue(e.target.checked, 2)}
+                          />
                           <label for="check2"></label>
                         </div>
                       </div>
@@ -52,7 +95,13 @@ function Notifications() {
                       </div>
                       <div class="col-4 text-center">
                         <div class="table_toggle_radio">
-                          <input class="d-none" type="checkbox" id="check3" />
+                          <input
+                            class="d-none"
+                            type="checkbox"
+                            id="check3"
+                            checked={noti.notify_confirmed_offer}
+                            onChange={(e) => onChangeValue(e.target.checked, 3)}
+                          />
                           <label for="check3"></label>
                         </div>
                       </div>
@@ -65,7 +114,13 @@ function Notifications() {
                       </div>
                       <div class="col-4 text-center">
                         <div class="table_toggle_radio">
-                          <input class="d-none" type="checkbox" id="check4" />
+                          <input
+                            class="d-none"
+                            type="checkbox"
+                            id="check4"
+                            checked={noti.notify_cancel_order}
+                            onChange={(e) => onChangeValue(e.target.checked, 4)}
+                          />
                           <label for="check4"></label>
                         </div>
                       </div>

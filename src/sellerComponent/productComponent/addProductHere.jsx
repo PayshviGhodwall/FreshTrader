@@ -17,6 +17,9 @@ function AddProductHere() {
   const [varietyValue, setVarietyValue] = useState("");
   const [typeValue, setTypeValue] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [varietyValueId, setVarietyValueId] = useState("");
+  const [typeValueId, setTypeValueId] = useState("");
+
   const navigate = useNavigate();
   useEffect(() => {
     getCateList();
@@ -57,12 +60,23 @@ function AddProductHere() {
       setCategoryValue(e.target.value);
       await getVarietyList(e.target.value);
     } else if (index === 2) {
-      setVarietyValue(e.target.value);
+      setVarietyValueId(e.target.value);
+      const value = variety.filter(
+        (a) => String(a._id) === String(e.target.value)
+      );
+      setVarietyValue(value[0].variety);
+
       await getTypeList(e.target.value);
     } else if (index === 3) {
-      setTypeValue(e.target.value);
+      setTypeValueId(e.target.value);
+      const value = type.filter(
+        (a) => String(a._id) === String(e.target.value)
+      );
+      setTypeValue(value[0].type);
     } else if (index === 4) {
       setVarietyValue(e.target.value);
+    } else if (index === 5) {
+      setTypeValue(e.target.value);
     }
   };
   const addProduct = async () => {
@@ -81,6 +95,7 @@ function AddProductHere() {
     }
   };
   const onFileSelection = (event) => {
+    console.log(event);
     let file = event.target.files[0];
     if (file && file.size < 2880) {
       toast.error("Minimum File size should be 1MB.");
@@ -93,6 +108,7 @@ function AddProductHere() {
       setSelectedFile(file);
     }
   };
+  console.log(selectedFile);
 
   return (
     <>
@@ -147,7 +163,7 @@ function AddProductHere() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder="Type in Veriety"
+                              placeholder="Type in Variety"
                               onChange={(e) => onChange(e, 4)}
                             />
                           </div>
@@ -177,8 +193,8 @@ function AddProductHere() {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder="Type in the type in Veriety"
-                              onChange={(e) => onChange(e, 3)}
+                              placeholder="Type in the type in Variety"
+                              onChange={(e) => onChange(e, 5)}
                             />
                           </div>
                         </div>
@@ -202,7 +218,7 @@ function AddProductHere() {
                                   className="upload-button1"
                                   href="javascript:;"
                                 >
-                                  <i className="far fa-camera"></i>Take Photo
+                                  <i className="fa fa-camera"></i>Take Photo
                                 </a>
                               </div>
                               <div className="col-6">

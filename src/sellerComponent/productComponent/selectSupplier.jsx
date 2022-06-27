@@ -227,7 +227,6 @@ function SelectSupplier() {
                     <th>Type</th>
                     <th>Email</th>
                     <th>Address</th>
-                    <th>Product</th>
                   </tr>
                 </thead>
 
@@ -236,7 +235,7 @@ function SelectSupplier() {
                     return (
                       <tr>
                         <td>
-                          <div class="form-group product_checkbox">
+                          <div class="form-group product_checkbox_1">
                             <input
                               class="d-none"
                               type="checkbox"
@@ -251,18 +250,6 @@ function SelectSupplier() {
                         <td>{item.market_seller ? "CO OP" : "Grover"}</td>
                         <td>{item.email}</td>
                         <td>{item.address}</td>
-
-                        <td>
-                          <Link
-                            class="tables_btns tables_green_btn"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal7"
-                            onClick={() => getSupplierProduct(item._id)}
-                            to=""
-                          >
-                            Products
-                          </Link>
-                        </td>
                       </tr>
                     );
                   })}

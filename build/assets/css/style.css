@@ -293,6 +293,7 @@ strong {
 
 .profile_dropdown button span img {
   max-width: 100%;
+  border-radius: 50%;
 }
 
 .profile_dropdown button {
@@ -613,6 +614,49 @@ strong {
 }
 
 .Toggle_chekbox input:checked ~ label::before {
+  right: -51px;
+  background-color: #fff;
+}
+
+.Toggle_chekbox_1 label {
+  position: relative;
+  display: inline-block;
+  font-weight: 400;
+  color: #fff;
+  font-size: 14px;
+  padding-right: 27px;
+}
+
+.Toggle_chekbox_1 label::after {
+  position: absolute;
+  content: "";
+  top: 9px;
+  right: -50px;
+  width: 54px;
+  height: 22px;
+  background-color: #fff;
+  border-radius: 50px;
+  transition: 0.5s all;
+}
+
+.Toggle_chekbox_1 label::before {
+  position: absolute;
+  content: "";
+  top: 7px;
+  right: -21px;
+  width: 26px;
+  height: 26px;
+  background-color: #a7e66e;
+  border-radius: 50px;
+  z-index: 1;
+  transition: 0.5s all;
+}
+
+.Toggle_chekbox_1 input:checked ~ label::after {
+  background-color: #a7e66e;
+}
+
+.Toggle_chekbox_1 input:checked ~ label::before {
   right: -51px;
   background-color: #fff;
 }
@@ -1234,6 +1278,47 @@ strong {
 }
 
 .product_checkbox input:checked ~ label::after {
+  border: 1px solid #fff;
+}
+
+.product_checkbox_1 label {
+  font-weight: 400;
+  color: #fff;
+  font-size: 14px;
+  position: relative;
+  display: inline-block;
+}
+
+.product_checkbox_1 label::after {
+  position: absolute;
+  content: "";
+  top: -21px;
+  right: -12px;
+  height: 28px;
+  width: 28px;
+  background-color: #8f969e;
+  border-radius: 4px;
+  border: 1px solid;
+}
+
+.product_checkbox_1 label::before {
+  position: absolute;
+  content: "";
+  top: -16px;
+  right: -7px;
+  height: 17px;
+  width: 17px;
+  background-color: #fff;
+  border-radius: 2px;
+  z-index: 1;
+  opacity: 0;
+}
+
+.product_checkbox_1 input:checked ~ label::before {
+  opacity: 1;
+}
+
+.product_checkbox_1 input:checked ~ label::after {
   border: 1px solid #fff;
 }
 
@@ -5307,7 +5392,7 @@ input[type="number"]::-webkit-outer-spin-button {
   position: relative;
 }
 
-::-webkit-scrollbar {
+.fresh_trader_main ::-webkit-scrollbar {
   display: none;
 }
 .buyer-container {

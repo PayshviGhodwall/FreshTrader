@@ -483,8 +483,8 @@ function AddConsignment() {
                         class="d-none"
                         type="radio"
                         id="cash_purchase"
-                        name="CASH"
-                        value="purchase"
+                        name="purchase"
+                        value="CASH"
                         {...register("purchase", {
                           required: true,
                         })}

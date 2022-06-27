@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getOrderCount } from "../../apiServices/sellerApiHandler/orderApiHandler";
 import Header from "../commonComponent/header";
 
 function Orders() {
+  const [noti, setNoti] = useState({});
+  useEffect(() => {
+    getNotify();
+  }, []);
+
+  const getNotify = async () => {
+    const { data } = await getOrderCount();
+    if (!data.error) {
+      setNoti(data.results);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -16,7 +29,7 @@ function Orders() {
                   <div class="col-md-3 d-flex align-items-stretch px-md-4 mb-md-5 mb-4">
                     <Link to="/new-orders" class="orders_box_main">
                       <span>New Orders</span>
-                      <label class="order_circle"> 1 </label>
+                      <label class="order_circle"> {noti.newOrderCount} </label>
                     </Link>
                   </div>
                   <div class="col-md-3 d-flex align-items-stretch px-md-4 mb-md-5 mb-4">
@@ -25,7 +38,10 @@ function Orders() {
                         Sent Counter <br />
                         Offers
                       </span>
-                      <label class="order_circle"> 3 </label>
+                      <label class="order_circle">
+                        {" "}
+                        {noti.counterOrderCount}{" "}
+                      </label>
                     </Link>
                   </div>
                   <div class="col-md-3 d-flex align-items-stretch px-md-4 mb-md-5 mb-4">
@@ -34,13 +50,16 @@ function Orders() {
                         Confirmed <br />
                         Offers
                       </span>
-                      <label class="order_circle"> 6 </label>
+                      <label class="order_circle">
+                        {" "}
+                        {noti.confirmedOrderCount}{" "}
+                      </label>
                     </Link>
                   </div>
                   <div class="col-md-3 d-flex align-items-stretch px-md-4 mb-md-5 mb-4">
                     <Link to="/notifications" class="orders_box_main">
                       <span>Notifications</span>
-                      <label class="order_circle"> 2 </label>
+                      <label class="order_circle"> 0 </label>
                     </Link>
                   </div>
                 </div>

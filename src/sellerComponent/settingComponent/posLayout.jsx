@@ -20,13 +20,15 @@ function PosLayout() {
   const [layout, setLayout] = useState([]);
   const [category, setCategory] = useState("Fruits");
   const [categoryName, setCategoryName] = useState([]);
-  const [filter, setFilter] = useState("");
-  const [search, setSearch] = useState(0);
+  const [filter, setFilter] = useState(0);
+  const [search, setSearch] = useState("");
+  const [staticVariety, setStaticVariety] = useState("");
+  const [filterVariety, setFilterVariety] = useState("");
 
   useEffect(() => {
     getVarietyList();
     posLayout();
-    getPosProduct();
+    getPosProduct(filterVariety);
   }, [category, search, filter]);
 
   const posLayout = async () => {
@@ -48,6 +50,7 @@ function PosLayout() {
   };
 
   const getPosProduct = async (variety) => {
+    setFilterVariety(variety);
     if (!variety) {
       setFruitItem([]);
       setHerbsItem([]);
@@ -87,11 +90,25 @@ function PosLayout() {
     }
   };
 
-  const onChange = (e) => {
+  const onChange = async (e, v) => {
+    console.log(e.target.value);
     setSearch(e.target.value);
+    const { data } = await getMyPOSProducts(
+      e.target.value,
+      filter,
+      category,
+      filterVariety
+    );
   };
   const filterBy = async (select) => {
+    console.log(select);
     setFilter(select);
+    const { data } = await getMyPOSProducts(
+      search,
+      select,
+      category,
+      filterVariety
+    );
   };
 
   const editCategory = (e, index) => {
@@ -249,7 +266,7 @@ function PosLayout() {
                       </div>
                       <div className="col-sm mt-md-0 mt-3">
                         <p className="m-0 text-white">
-                          Remeber to press save after you make changes
+                          Remember to press save after you make changes
                         </p>
                       </div>
                     </form>
@@ -384,7 +401,12 @@ function PosLayout() {
                                   </div>
 
                                   <div className="form-group mb-md-4 mb-3">
-                                    <select className="form-control">
+                                    <select
+                                      className="form-control"
+                                      onChange={(e) =>
+                                        setStaticVariety(e.target.value)
+                                      }
+                                    >
                                       {variety.map((item, index) => {
                                         return (
                                           <option value={item._id} key={index}>
@@ -399,7 +421,7 @@ function PosLayout() {
                                     className="form-group mb-md-4 mb-3"
                                     data-bs-toggle="modal"
                                     data-bs-target="#exampleModalProduct"
-                                    onClick={() => getPosProduct("")}
+                                    onClick={() => getPosProduct(staticVariety)}
                                   >
                                     <a
                                       className="layout-box"
@@ -739,7 +761,7 @@ function PosLayout() {
                       <table className="table mb-0">
                         <thead>
                           {" "}
-                          <tr>
+                          <tr style={{ background: "#5f6874" }}>
                             <th>Category Name</th>
                             <th>Alias Name</th>
                           </tr>

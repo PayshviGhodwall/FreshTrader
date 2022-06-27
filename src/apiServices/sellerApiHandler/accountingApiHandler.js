@@ -181,12 +181,14 @@ export async function deleteSupplier(id) {
   }
 }
 
-export async function getMyProducts(formData) {
+export async function getMyProducts(formData, search, filter) {
   try {
     const { data } = await httpService.post(
       `${process.env.REACT_APP_APIENDPOINT}/seller/getMyProducts`,
       {
         supplierId: formData,
+        search: search,
+        filter: filter,
       }
     );
     console.log(data);

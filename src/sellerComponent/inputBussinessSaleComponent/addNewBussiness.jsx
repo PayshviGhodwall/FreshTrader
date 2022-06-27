@@ -260,7 +260,7 @@ function AddNewBussiness() {
                         <div class="row align-items-center py-2">
                           <div class="col-md-6 mb-md-0 mb-3">
                             <label class="mb-0 form_tag">
-                              In This Business Part of SMSC?
+                              Is This Business a market seller?
                             </label>
                           </div>
                           <div class="col Business_radio">

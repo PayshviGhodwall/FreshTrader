@@ -262,7 +262,7 @@ function Inventory() {
                     </div>
                   </div>
                   <div className="col-auto">
-                    <div className="form-group Toggle_chekbox Toggle_chekbox_design  d-flex justify-content-xl-center justify-content-lg-start justify-content-md-start justify-content-start align-items-center">
+                    <div className="form-group Toggle_chekbox_1 Toggle_chekbox_design  d-flex justify-content-xl-center justify-content-lg-start justify-content-md-start justify-content-start align-items-center">
                       <input
                         className="d-none"
                         type="checkbox"
