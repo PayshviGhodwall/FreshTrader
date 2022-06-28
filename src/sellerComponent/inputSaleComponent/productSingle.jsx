@@ -584,7 +584,7 @@ function ProductSingle() {
                                         to=""
                                         onClick={() => setSalesman(item._id)}
                                       >
-                                        {item.first_name}
+                                        {item.username}
                                       </Link>
                                     </li>
                                   ))}

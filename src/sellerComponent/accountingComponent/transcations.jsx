@@ -530,7 +530,7 @@ function Transcations() {
                           </td>
                           <td>{moment(item.createdAt).format("LL")}</td>
                           <td>{moment(item.createdAt).format("LL")}</td>
-                          <td>{item.salesman.full_name}</td>
+                          <td>{item.salesman.username}</td>
                           <td>{item.ref}</td>
                           <td>{item.type}</td>
                           <td>{item.buyer.business_trading_name}</td>
