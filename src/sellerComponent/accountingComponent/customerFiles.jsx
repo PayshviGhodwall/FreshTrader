@@ -572,13 +572,13 @@ function CustomerFiles() {
                               : `$${item.total}`}
                           </td>
                           <td>
-                            {" "}
+                            $
                             {item.type !== "CREDIT NOTE"
                               ? item.payment_received
                               : ""}
                           </td>
                           <td>
-                            {" "}
+                            $
                             {item.type !== "CREDIT NOTE" ? item.total_owed : ""}
                           </td>
 

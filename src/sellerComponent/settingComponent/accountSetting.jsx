@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { updateSellerPassword } from "../../apiServices/sellerApiHandler/accountingApiHandler";
 import { getSellerData } from "../../apiServices/sellerApiHandler/loginApiHandler";
 import {
   updateOrderSetting,
@@ -19,6 +22,7 @@ function AccountSetting() {
   const [data, setData] = useState("");
   const [publicOrdering, setPublicOrdering] = useState("");
   const [publishPrice, setPublishPrice] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     getsellerInfo();
@@ -54,6 +58,25 @@ function AccountSetting() {
       await getsellerInfo();
     }
   };
+
+  const onPasswordChange = async (value) => {
+    setPassword(value);
+  };
+
+  const onPasswordCheck = async () => {
+    if (!password) {
+      toast.error("Please enter the password");
+      return;
+    }
+    const response = await updateSellerPassword({
+      password: password,
+      email: data.email,
+    });
+    if (!response.data.error) {
+      await getsellerInfo();
+    }
+  };
+
   const orders_setting = async (type) => {
     if (type === 1) setPublicOrdering(!publicOrdering);
     else setPublishPrice(!publishPrice);
@@ -318,18 +341,20 @@ function AccountSetting() {
                           <div className="col">
                             <input
                               className="form-control"
-                              type="text"
+                              type="password"
                               id="password"
                               name="password"
+                              onChange={(e) => onPasswordChange(e.target.value)}
                             />
                           </div>
                           <div className="col-md-2 col-auto ps-0">
-                            <button
+                            <Link
+                              to=""
                               className="custom_btns change_btn"
-                              type="submit"
+                              onClick={() => onPasswordCheck()}
                             >
                               Change
-                            </button>
+                            </Link>
                           </div>
                         </div>
                       </div>

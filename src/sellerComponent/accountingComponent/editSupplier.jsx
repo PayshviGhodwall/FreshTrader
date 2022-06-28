@@ -11,6 +11,8 @@ const EditSupplier = ({ editData, list }) => {
     reset,
   } = useForm();
 
+  const [market, setMarket] = useState("");
+
   const onSubmit = async (data) => {
     console.log(data);
 
@@ -33,23 +35,12 @@ const EditSupplier = ({ editData, list }) => {
     defaultValues.entity_name = editData.entity_name;
     defaultValues.address = editData.address;
     defaultValues.phone_number = editData.phone_number;
-    defaultValues.market_seller = editData.market_seller;
     defaultValues.email = editData.email;
     defaultValues.smcs_code = editData.smcs_code;
-
+    setMarket(editData.market_seller ? "Yes" : "No");
     reset({ ...defaultValues });
   };
-
-  const ratioChange = () => {
-    const yes = document.getElementsByName("market_seller2")[0].checked;
-    const no = document.getElementsByName("market_seller2")[1].checked;
-    let data = editData;
-    console.log(yes, no);
-    if (yes) data.market_seller = true;
-
-    if (no) data.market_seller = false;
-    // setEditData(data);
-  };
+  console.log(market);
 
   return (
     <>
@@ -218,8 +209,12 @@ const EditSupplier = ({ editData, list }) => {
                   type="radio"
                   id="business1"
                   name="market_seller2"
-                  checked={editData.market_seller ? true : false}
-                  onClick={() => ratioChange()}
+                  value="Yes"
+                  checked={market === "Yes"}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setMarket(e.target.value);
+                  }}
                 />
                 <label for="business1">Yes</label>
               </div>
@@ -229,8 +224,12 @@ const EditSupplier = ({ editData, list }) => {
                   type="radio"
                   id="business2"
                   name="market_seller2"
-                  checked={!editData.market_seller ? true : false}
-                  onClick={() => ratioChange()}
+                  value="No"
+                  checked={market === "No"}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setMarket(e.target.value);
+                  }}
                 />
 
                 <label for="business2">No</label>
@@ -280,9 +279,8 @@ const EditSupplier = ({ editData, list }) => {
               <div class="col-md-4">
                 <button
                   class="custom_btns"
-                  // data-bs-toggle="modal"
-                  // data-bs-target="#exampleModal7"
-
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal7"
                   type="submit"
                 >
                   Save

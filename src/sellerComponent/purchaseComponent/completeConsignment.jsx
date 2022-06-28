@@ -155,6 +155,8 @@ function CompleteConsignment() {
       total_cost:
         +document.getElementById(`recieve${index}${index1}${index2}`).value *
         +document.getElementById(`cost${index}${index1}${index2}`).value,
+      inv_on_hand: +document.getElementById(`recieve${index}${index1}${index2}`)
+        .value,
     };
 
     const formData = {
@@ -580,7 +582,7 @@ function CompleteConsignment() {
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>Gross Profit ($): {gp}</td>
+                    <td>Gross Profit ($): {gp.toFixed(2)}</td>
                     <td></td>
                     <td></td>
                     <td></td>

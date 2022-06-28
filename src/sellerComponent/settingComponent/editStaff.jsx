@@ -71,8 +71,7 @@ function EditStaff() {
       defaultValues.first_name = data.results.staff.first_name;
       defaultValues.last_name = data.results.staff.last_name;
       defaultValues.phone_number = data.results.staff.phone_number;
-      defaultValues.address_line2 = data.results.staff.address_line2;
-      defaultValues.phone_number = data.results.staff.phone_number;
+      defaultValues.role = data.results.staff.role;
 
       reset({ ...defaultValues });
       setAccess(data.results.staff.access);
@@ -116,6 +115,38 @@ function EditStaff() {
                             />
                             {errors?.username && (
                               <p className="form-error mt-1">
+                                This field is required
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group col-12 mb-md-2 mb-3">
+                        <div class="row align-items-center">
+                          <div class="col-md-5 mb-md-0 mb-2">
+                            <label class="mb-0 form_tag">Role</label>
+                          </div>
+                          <div class="col-auto d-md-block d-none">
+                            <span class="text-white">:</span>
+                          </div>
+                          <div class="col">
+                            <select
+                              class="form-select"
+                              aria-label="Default select example"
+                              id="role"
+                              name="role"
+                              {...register("role", {
+                                required: true,
+                              })}
+                            >
+                              <option value="">Select</option>
+                              <option value="Salesman">Salesman</option>
+                              <option value="Inventory Management">
+                                Inventory Management
+                              </option>
+                            </select>
+                            {errors?.role && (
+                              <p className="form-error mt-2">
                                 This field is required
                               </p>
                             )}

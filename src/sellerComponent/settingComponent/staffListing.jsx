@@ -51,6 +51,9 @@ function StaffListing() {
                     <Link class="product_comman_btn ms-0" to="/add-staff">
                       Add Staff Account
                     </Link>
+                    <Link class="product_comman_btn ms-3" to="/salesman">
+                      Add Salesman
+                    </Link>
                   </div>
                 </form>
               </div>
@@ -66,6 +69,7 @@ function StaffListing() {
                     <th>S No.</th>
                     <th>Date</th>
                     <th>Userame</th>
+                    <th>Role</th>
                     <th>First Name</th>
                     <th>Last Name</th>
 
@@ -79,6 +83,7 @@ function StaffListing() {
                         <td>{index + 1}</td>
                         <td>{moment(item.createdAt).format("LL")}</td>
                         <td>{item.username}</td>
+                        <td>{item.role}</td>
                         <td>{item.first_name}</td>
                         <td>{item.last_name}</td>
                         <td>

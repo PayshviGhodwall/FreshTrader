@@ -292,10 +292,11 @@ export async function updateOrderSetting(formData) {
   }
 }
 
-export async function getStaff() {
+export async function getStaff(formData) {
   try {
-    const { data } = await httpService.get(
-      `${process.env.REACT_APP_APIENDPOINT}/seller/getStaff`
+    const { data } = await httpService.post(
+      `${process.env.REACT_APP_APIENDPOINT}/seller/getStaff`,
+      formData
     );
     console.log(data);
 

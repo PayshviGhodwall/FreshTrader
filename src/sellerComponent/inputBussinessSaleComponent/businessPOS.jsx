@@ -9,7 +9,10 @@ import {
   processTransaction,
   undoTransaction,
 } from "../../apiServices/sellerApiHandler/inputBusinessSaleApiHandler";
-import { getSalesman } from "../../apiServices/sellerApiHandler/settingApiHandler";
+import {
+  getSalesman,
+  getStaff,
+} from "../../apiServices/sellerApiHandler/settingApiHandler";
 import { getSellerData } from "../../apiServices/sellerApiHandler/loginApiHandler";
 import {
   getMyProductList,
@@ -78,9 +81,9 @@ function BusinessPOS() {
   };
 
   const getSalesmens = async () => {
-    const { data } = await getSalesman();
+    const { data } = await getStaff({ role: "Salesman" });
     if (!data.error) {
-      setSalesmens(data.results.sellerSalesman);
+      setSalesmens(data.results.staffs);
     }
   };
 
@@ -679,7 +682,7 @@ function BusinessPOS() {
                                         to=""
                                         onClick={() => setSalesman(item._id)}
                                       >
-                                        {item.full_name}
+                                        {item.first_name}
                                       </Link>
                                     </li>
                                   ))}

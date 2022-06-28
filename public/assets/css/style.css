@@ -2402,7 +2402,7 @@ span.plus {
 
 .Account_settng_page .change_btn {
   font-size: 15px;
-  padding: 13px 0;
+  padding: 13px;
 }
 .upload_file {
   display: flex;

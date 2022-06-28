@@ -87,6 +87,38 @@ function AddStaff() {
                       <div class="form-group col-12 mb-md-2 mb-3">
                         <div class="row align-items-center">
                           <div class="col-md-5 mb-md-0 mb-2">
+                            <label class="mb-0 form_tag">Role</label>
+                          </div>
+                          <div class="col-auto d-md-block d-none">
+                            <span class="text-white">:</span>
+                          </div>
+                          <div class="col">
+                            <select
+                              class="form-select"
+                              aria-label="Default select example"
+                              id="role"
+                              name="role"
+                              {...register("role", {
+                                required: true,
+                              })}
+                            >
+                              <option value="">Select</option>
+                              <option value="Salesman">Salesman</option>
+                              <option value="Inventory Management">
+                                Inventory Management
+                              </option>
+                            </select>
+                            {errors?.role && (
+                              <p className="form-error mt-2">
+                                This field is required
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group col-12 mb-md-2 mb-3">
+                        <div class="row align-items-center">
+                          <div class="col-md-5 mb-md-0 mb-2">
                             <label class="mb-0 form_tag">Password</label>
                           </div>
                           <div class="col-auto d-md-block d-none">
@@ -110,6 +142,7 @@ function AddStaff() {
                           </div>
                         </div>
                       </div>
+
                       <div class="form-group col-12 mb-md-2 mb-3">
                         <div class="row align-items-center">
                           <div class="col-md-5 mb-md-0 mb-2">

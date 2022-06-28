@@ -106,7 +106,7 @@ function Setting() {
                   </Link>
                 </div>
                 <div class="px-lg-4 col-xl-4 col-lg-4 col-md-6 mb-md-4 mb-3 d-flex align-items-stretch">
-                  <Link class="header_menus_box d-block" to="/salesman">
+                  <Link class="header_menus_box d-block" to="/staff">
                     <div class="menus_icon">
                       <img
                         class="white_img"
@@ -119,7 +119,7 @@ function Setting() {
                         alt="Icon"
                       />
                     </div>
-                    <h2>Salesman</h2>
+                    <h2>Staff</h2>
                   </Link>
                 </div>
                 <div class="px-lg-4 col-xl-4 col-lg-4 col-md-6 mb-md-4 mb-3 d-flex align-items-stretch">

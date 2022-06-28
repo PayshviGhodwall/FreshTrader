@@ -129,7 +129,10 @@ function AddConsignment() {
       total_cost:
         +document.getElementById(`recieve${index}${index1}${index2}`).value *
         +document.getElementById(`cost${index}${index1}${index2}`).value,
+      inv_on_hand: +document.getElementById(`recieve${index}${index1}${index2}`)
+        .value,
     };
+
     console.log(document.getElementById(`grade${index}${index1}${index2}`));
 
     setProducts(products.concat([add]));
