@@ -6,6 +6,7 @@ import {
   getMyProductUnit,
   getProductDetail,
   getProductUnit,
+  removeProductUnit,
 } from "../../apiServices/sellerApiHandler/productApiHandler";
 import Header from "../commonComponent/header";
 import { useParams } from "react-router-dom";
@@ -30,6 +31,13 @@ function AddProductUnit() {
       let list = [{ _id: -1, unit: { unit: "Select Unit" } }];
       list = list.concat(data.results.units);
       setUnit(list);
+    }
+  };
+  const removeUnit = async (unit) => {
+    const { data } = await removeProductUnit({ productId: id, units: unit });
+    console.log(data);
+    if (!data.error) {
+      await getAddedUnits();
     }
   };
   const addMissingUnit = async () => {
@@ -209,6 +217,10 @@ function AddProductUnit() {
                               >
                                 <Link className="unit_single" to="">
                                   {un.units?.unit}
+                                  <i
+                                    className="fa fa-times"
+                                    onClick={() => removeUnit(un.units._id)}
+                                  ></i>
                                 </Link>
                               </div>
                             ))}
@@ -216,10 +228,8 @@ function AddProductUnit() {
                         </div>
                       </div>
                       <div className="col-12 px-1 mt-md-4 mt-3 pt-2">
-                        <Link to="/product">
-                          <button className="custom_btns w-auto">
-                            Add Products
-                          </button>
+                        <Link to="/product" className="custom_btns w-auto">
+                          Complete
                         </Link>
                       </div>
                     </div>

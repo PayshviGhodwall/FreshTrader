@@ -37,8 +37,10 @@ const EditSupplier = ({ editData, list }) => {
     defaultValues.phone_number = editData.phone_number;
     defaultValues.email = editData.email;
     defaultValues.smcs_code = editData.smcs_code;
-    setMarket(editData.market_seller ? "Yes" : "No");
+    defaultValues.market_seller = editData.market_seller;
+
     reset({ ...defaultValues });
+    console.log(defaultValues);
   };
   console.log(market);
 
@@ -208,13 +210,11 @@ const EditSupplier = ({ editData, list }) => {
                   class="d-none"
                   type="radio"
                   id="business1"
-                  name="market_seller2"
-                  value="Yes"
-                  checked={market === "Yes"}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setMarket(e.target.value);
-                  }}
+                  name="market_seller"
+                  value={true}
+                  {...register("market_seller", {
+                    required: true,
+                  })}
                 />
                 <label for="business1">Yes</label>
               </div>
@@ -223,13 +223,11 @@ const EditSupplier = ({ editData, list }) => {
                   class="d-none"
                   type="radio"
                   id="business2"
-                  name="market_seller2"
-                  value="No"
-                  checked={market === "No"}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    setMarket(e.target.value);
-                  }}
+                  name="market_seller"
+                  value={false}
+                  {...register("market_seller", {
+                    required: true,
+                  })}
                 />
 
                 <label for="business2">No</label>

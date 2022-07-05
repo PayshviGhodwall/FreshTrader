@@ -16,6 +16,7 @@ function BuyerSignup() {
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     console.log(data);
+
     const response = await buyerSignup(data);
     if (!response.data.error) {
       navigate("/buyer/faq-screen");
@@ -167,7 +168,7 @@ function BuyerSignup() {
                           type="radio"
                           id="check1"
                           name="is_smcs"
-                          value="Yes"
+                          value={true}
                           {...register("is_smcs", { required: true })}
                         />
                         <label for="check1">Yes</label>
@@ -183,7 +184,7 @@ function BuyerSignup() {
                           type="radio"
                           id="check2"
                           name="is_smcs"
-                          value="No"
+                          value={false}
                         />
                         <label for="check2">No</label>
                       </div>

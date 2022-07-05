@@ -9,15 +9,22 @@ import {
   getOrderDetails,
 } from "../../apiServices/sellerApiHandler/orderApiHandler";
 import { getProductConsignments } from "../../apiServices/sellerApiHandler/inputBusinessSaleApiHandler";
+import { toast } from "react-toastify";
 
 function ViewConfirmOrders() {
   const [data, setData] = useState("");
-  let { id } = useParams();
+  const [processed, setProcessed] = useState(false);
+  const [processedData, setProcessedData] = useState("");
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     getOrDetails();
-  }, []);
+    if (processed)
+      navigate(`/business-pos/${processedData.buyerId}`, {
+        state: { data: processedData },
+      });
+  }, [processed]);
 
   const getOrDetails = async () => {
     const { data } = await getOrderDetails(id);
@@ -50,82 +57,110 @@ function ViewConfirmOrders() {
       navigate("/confirm-orders");
     }
   };
+  const processOrder = async () => {
+    console.log(data);
+    let pr = [];
+    for (const product of data.product) {
+      if (!product.consignment) {
+        toast.error("Select Consignment for all products");
+        return;
+      }
+      pr.push({
+        product: product.product,
+        consignment: product.consignment,
+        quantity: product.quantity,
+        per_unit_price: product.consignment.products.cost_per_unit,
+        per_kg_source: false,
+      });
+    }
+
+    const formData = {
+      payment: data.payment.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }),
+      product: pr,
+      orderId: id,
+      buyerId: data.buyer._id,
+    };
+    setProcessedData(formData);
+    setProcessed(true);
+  };
   return (
     <>
       <Header />
-      <section class="similler_order">
-        <div class="container">
-          <div class="row py-3 align-items-start">
-            <div class="col-md-auto mb-md-0 mb-2">
-              <Link class="product_comman_btn m-0" to="/confirm-orders">
+      <section className="similler_order">
+        <div className="container">
+          <div className="row py-3 align-items-start">
+            <div className="col-md-auto mb-md-0 mb-2">
+              <Link className="product_comman_btn m-0" to="/confirm-orders">
                 <img src="../assets/img/arrow-left-line.png" alt="Back" />
                 Back
               </Link>
             </div>
-            <div class="col">
-              <div class="order_top_mains">
-                <div class="row">
-                  <div class="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
-                    <div class="row order_top_box align-items-center">
-                      <div class="col-5">
+            <div className="col">
+              <div className="order_top_mains">
+                <div className="row">
+                  <div className="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
+                    <div className="row order_top_box align-items-center">
+                      <div className="col-5">
                         <strong>Order Date</strong>
                       </div>
-                      <div class="col-auto px-0">
-                        <span class="text-white">:</span>
+                      <div className="col-auto px-0">
+                        <span className="text-white">:</span>
                       </div>
-                      <div class="col pe-0">
+                      <div className="col pe-0">
                         <span>{moment(data.createdAt).format("LL")}</span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
-                    <div class="row order_top_box align-items-center">
-                      <div class="col-5">
+                  <div className="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
+                    <div className="row order_top_box align-items-center">
+                      <div className="col-5">
                         <strong>Buyer</strong>
                       </div>
-                      <div class="col-auto px-0">
-                        <span class="text-white">:</span>
+                      <div className="col-auto px-0">
+                        <span className="text-white">:</span>
                       </div>
-                      <div class="col pe-0">
+                      <div className="col pe-0">
                         <span>{data.buyer?.business_trading_name}</span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
-                    <div class="row order_top_box align-items-center">
-                      <div class="col-5">
+                  <div className="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
+                    <div className="row order_top_box align-items-center">
+                      <div className="col-5">
                         <strong>Phone</strong>
                       </div>
-                      <div class="col-auto px-0">
-                        <span class="text-white">:</span>
+                      <div className="col-auto px-0">
+                        <span className="text-white">:</span>
                       </div>
-                      <div class="col pe-0">
+                      <div className="col pe-0">
                         <span>{data.phone_number}</span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
-                    <div class="row order_top_box align-items-center">
-                      <div class="col-5">
+                  <div className="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
+                    <div className="row order_top_box align-items-center">
+                      <div className="col-5">
                         <strong>Notes</strong>
                       </div>
-                      <div class="col-auto px-0">
-                        <span class="text-white">:</span>
+                      <div className="col-auto px-0">
+                        <span className="text-white">:</span>
                       </div>
-                      <div class="col pe-0">
+                      <div className="col pe-0">
                         <span>{data.notes}</span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
-                    <div class="row order_top_box align-items-center">
-                      <div class="col-5">
+                  <div className="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
+                    <div className="row order_top_box align-items-center">
+                      <div className="col-5">
                         <strong>Pickup Date</strong>
                       </div>
-                      <div class="col-auto px-0">
-                        <span class="text-white">:</span>
+                      <div className="col-auto px-0">
+                        <span className="text-white">:</span>
                       </div>
-                      <div class="col pe-0">
+                      <div className="col pe-0">
                         <span>
                           {moment(data.pick_up_date).format(
                             "ddd, MMMM Do YYYY"
@@ -134,28 +169,28 @@ function ViewConfirmOrders() {
                       </div>
                     </div>
                   </div>
-                  <div class="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
-                    <div class="row order_top_box align-items-center">
-                      <div class="col-5">
+                  <div className="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
+                    <div className="row order_top_box align-items-center">
+                      <div className="col-5">
                         <strong>Pickup Time</strong>
                       </div>
-                      <div class="col-auto px-0">
-                        <span class="text-white">:</span>
+                      <div className="col-auto px-0">
+                        <span className="text-white">:</span>
                       </div>
-                      <div class="col pe-0">
+                      <div className="col pe-0">
                         <span>{data.pick_up_time}</span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
-                    <div class="row order_top_box align-items-center">
-                      <div class="col-5">
+                  <div className="col-xl-3 col-lg-4 col-md-6 my-md-2 my-1">
+                    <div className="row order_top_box align-items-center">
+                      <div className="col-5">
                         <strong>Trans Type</strong>
                       </div>
-                      <div class="col-auto px-0">
-                        <span class="text-white">:</span>
+                      <div className="col-auto px-0">
+                        <span className="text-white">:</span>
                       </div>
-                      <div class="col pe-0">
+                      <div className="col pe-0">
                         <span>{data.payment}</span>
                       </div>
                     </div>
@@ -165,10 +200,10 @@ function ViewConfirmOrders() {
             </div>
           </div>
         </div>
-        <div class="container-fluid px-0">
-          <div class="similler_order_table comman_table_design">
-            <div class="table-responsive">
-              <table class="table mb-0">
+        <div className="container-fluid px-0">
+          <div className="similler_order_table comman_table_design">
+            <div className="table-responsive">
+              <table className="table mb-0">
                 <thead>
                   <tr style={{ background: "#374251" }}>
                     <th>Variety</th>
@@ -181,14 +216,14 @@ function ViewConfirmOrders() {
                 <tbody>
                   {data.product?.map((item, index) => {
                     return (
-                      <tr>
+                      <tr key={index}>
                         <td>{item.product.variety.variety}</td>
                         <td>{item.product.type.type}</td>
                         <td>{item.product.units.unit}</td>
                         <td>{item.quantity}</td>
                         <td>
                           <select
-                            class="form-select table_select form-select-icon"
+                            className="form-select table_select form-select-icon"
                             aria-label="Default select example"
                             onChange={(e) =>
                               changeConsignment(e.target.value, index)
@@ -198,7 +233,7 @@ function ViewConfirmOrders() {
                               Select Supplier (Consignment ID)
                             </option>
                             {item.consignmentList.map((cons, index2) => (
-                              <option value={cons._id}>
+                              <option value={cons._id} key={index2}>
                                 {cons.supplier.business_trading_name} (#
                                 {cons.consign})
                               </option>
@@ -213,10 +248,10 @@ function ViewConfirmOrders() {
             </div>
           </div>
 
-          <div class="row justify-content-center py-4">
-            <div class="col-auto text-center">
+          <div className="row justify-content-center py-4">
+            <div className="col-auto text-center">
               <Link
-                class="customer_btn mx-md-3 mb-md-0 mb-2 tables_green_btn tables_red_btn"
+                className="customer_btn mx-md-3 mb-md-0 mb-2 tables_green_btn tables_red_btn"
                 to=""
                 onClick={() => declineConfirmOrders("CANCELED")}
               >
@@ -255,21 +290,22 @@ function ViewConfirmOrders() {
               </ul>
 
               <Link
-                class="customer_btn mx-md-3 mb-md-0 mb-2 tables_green_btn"
+                className="customer_btn mx-md-3 mb-md-0 mb-2 tables_green_btn"
                 to=""
               >
                 Print Order PDF
               </Link>
               <Link
-                class="customer_btn mx-md-3 mb-md-0 mb-2 tables_green_btn"
+                className="customer_btn mx-md-3 mb-md-0 mb-2 tables_green_btn"
                 to=""
               >
                 Print Order Docket
               </Link>
 
               <Link
-                class="customer_btn mx-md-3 mb-md-0 mb-2 tables_green_btn"
+                className="customer_btn mx-md-3 mb-md-0 mb-2 tables_green_btn"
                 to=""
+                onClick={() => processOrder()}
               >
                 Process
               </Link>

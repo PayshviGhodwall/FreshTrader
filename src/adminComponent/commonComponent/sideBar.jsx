@@ -78,13 +78,20 @@ function SideBar({ sideBar }) {
               <span class="title">Subscription Management</span>
             </Link>
           </li>
-          <li class="list">
-            <a href="#">
+          <li
+            class={
+              window.location.href.includes("/support-management") ||
+              window.location.href.includes("/view-chat")
+                ? " list active"
+                : "list"
+            }
+          >
+            <Link to="/admin/support-management">
               <span class="icon">
                 <ion-icon name="paper-plane-sharp"></ion-icon>
               </span>
               <span class="title">Support Management</span>
-            </a>
+            </Link>
           </li>
           <li class="list">
             <a href="#">

@@ -76,6 +76,21 @@ import BuyerSignup from "./buyerComponent/buyerSignup";
 import FaqScreen from "./buyerComponent/faqScreen";
 import ProtectedRoutes from "./sellerComponent/commonComponent/protectedRoutes";
 import PrivateRoute from "./sellerComponent/commonComponent/protectedRoutes";
+import BuyerOrders from "./buyerComponent/buyerOrders/buyerOrders";
+import CreateNewOrder from "./buyerComponent/buyerOrders/createNewOrder";
+import Cart from "./buyerComponent/buyerOrders/cart";
+import SendOrder from "./buyerComponent/buyerOrders/sendOrder";
+import BuyerCounterOffer from "./buyerComponent/buyerOrders/counterOffer";
+import BuyerConfirmOrder from "./buyerComponent/buyerOrders/confirmOrder";
+import ReOrder from "./buyerComponent/buyerOrders/reOrder";
+import CreateNewOrderDetails from "./buyerComponent/buyerOrders/createNewOrderDetails";
+import CompleteOrder from "./buyerComponent/buyerOrders/completeOrder";
+import ViewSendOrder from "./buyerComponent/buyerOrders/viewSendOrder";
+import BuyerViewCounterOffer from "./buyerComponent/buyerOrders/viewCounterOffer";
+import ViewConfirmOrder from "./buyerComponent/buyerOrders/viewConfirmOrder";
+import ViewReOrder from "./buyerComponent/buyerOrders/viewReOrder";
+import AdminSupport from "./adminComponent/supportComponent/support";
+import ViewChatSupport from "./adminComponent/supportComponent/viewSupportChat";
 
 function App() {
   const [staff, setStaff] = useState("");
@@ -249,6 +264,8 @@ function App() {
             path="/admin/subscription-detail/:id"
             element={<SubscriptionDetail />}
           />
+          <Route path="/admin/support-management" element={<AdminSupport />} />
+          <Route path="/admin/view-chat" element={<ViewChatSupport />} />
 
           {/* Buyer Routes */}
 
@@ -256,6 +273,34 @@ function App() {
           <Route path="/buyer/login" element={<BuyerLogin />} />
           <Route path="/buyer/signup" element={<BuyerSignup />} />
           <Route path="/buyer/faq-screen" element={<FaqScreen />} />
+          <Route path="/buyer/orders" element={<BuyerOrders />} />
+          <Route path="/buyer/create-new-order" element={<CreateNewOrder />} />
+          <Route
+            path="/buyer/order-details/:id"
+            element={<CreateNewOrderDetails />}
+          />
+          <Route path="/buyer/cart" element={<Cart />} />
+          <Route path="/buyer/send-order" element={<SendOrder />} />
+          <Route
+            path="/buyer/view-sent-order/:id"
+            element={<ViewSendOrder />}
+          />
+
+          <Route path="/buyer/counter-offer" element={<BuyerCounterOffer />} />
+          <Route
+            path="/buyer/view-counter-offer/:id"
+            element={<BuyerViewCounterOffer />}
+          />
+
+          <Route path="/buyer/confirm-order" element={<BuyerConfirmOrder />} />
+          <Route
+            path="/buyer/view-confirm-offer/:id"
+            element={<ViewConfirmOrder />}
+          />
+
+          <Route path="/buyer/re-order" element={<ReOrder />} />
+          <Route path="/buyer/view-re-order/:id" element={<ViewReOrder />} />
+          <Route path="/buyer/complete-order/:id" element={<CompleteOrder />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -1,9 +1,9 @@
-import adminhttpService from "../adminhttpService";
 import { toast } from "react-toastify";
+import buyerhtttpService from "../buyerhtttpService";
 
 export async function buyerLogin(formData) {
   try {
-    const { data, headers } = await adminhttpService.post(
+    const { data, headers } = await buyerhtttpService.post(
       `${process.env.REACT_APP_APIENDPOINT}/buyer/login`,
       formData
     );
@@ -25,7 +25,7 @@ export async function buyerLogin(formData) {
 
 export async function buyerSignup(formData) {
   try {
-    const { data, headers } = await adminhttpService.post(
+    const { data, headers } = await buyerhtttpService.post(
       `${process.env.REACT_APP_APIENDPOINT}/buyer/signup`,
       formData
     );

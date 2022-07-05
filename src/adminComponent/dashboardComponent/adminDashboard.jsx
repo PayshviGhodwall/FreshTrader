@@ -60,7 +60,7 @@ function AdminDashboard() {
                             <div class="col">
                               <div class="dashboard_boxcontent">
                                 <h2>Total Users</h2>
-                                <span>0</span>
+                                <span>{dashboard.sellerCount}</span>
                               </div>
                             </div>
                           </div>
@@ -90,7 +90,7 @@ function AdminDashboard() {
                             <div class="col">
                               <div class="dashboard_boxcontent">
                                 <h2>Total Revenue</h2>
-                                <span>$ {dashboard.sellerCount}</span>
+                                <span>$ {dashboard.revenue}</span>
                               </div>
                             </div>
                           </div>

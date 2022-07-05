@@ -85,12 +85,36 @@ function Product() {
     }
   };
 
-  const updatePrice = async (e, i, type, supplier) => {
+  const updatePrice = async (e, i, type, supplier, unitType) => {
     let prev = [...prevData];
     prev.push(sellerData);
     setPrevData(prev);
-    if (type === "Set One") {
-      for (const supplier of sellerData[i].suppliers) {
+    if (unitType === "Per KG") {
+      sellerData[i].price = [
+        {
+          price: e.target.value,
+        },
+      ];
+    } else {
+      if (type === "Set One") {
+        for (const supplier of sellerData[i].suppliers) {
+          const price = sellerData[i].price.filter(
+            (p) => String(p.supplier) === String(supplier._id)
+          );
+          if (price.length) {
+            sellerData[i].price = sellerData[i].price.map((p) => {
+              if (String(p.supplier) === String(supplier._id)) {
+                p.price = e.target.value;
+              }
+              return p;
+            });
+          } else
+            sellerData[i].price.push({
+              supplier: supplier._id,
+              price: e.target.value,
+            });
+        }
+      } else {
         const price = sellerData[i].price.filter(
           (p) => String(p.supplier) === String(supplier._id)
         );
@@ -106,26 +130,10 @@ function Product() {
             supplier: supplier._id,
             price: e.target.value,
           });
+        console.log(e.target.value);
+        document.getElementById(`price${supplier._id}${i}`).value =
+          e.target.value;
       }
-    } else {
-      const price = sellerData[i].price.filter(
-        (p) => String(p.supplier) === String(supplier._id)
-      );
-      if (price.length) {
-        sellerData[i].price = sellerData[i].price.map((p) => {
-          if (String(p.supplier) === String(supplier._id)) {
-            p.price = e.target.value;
-          }
-          return p;
-        });
-      } else
-        sellerData[i].price.push({
-          supplier: supplier._id,
-          price: e.target.value,
-        });
-      console.log(e.target.value);
-      document.getElementById(`price${supplier._id}${i}`).value =
-        e.target.value;
     }
     setSelectedProduct(sellerData[i]);
     setSellerData(sellerData);
@@ -233,14 +241,16 @@ function Product() {
   const onSearch = async (e) => {
     await getSellerProd(varietyValue, typeValue, e.target.value);
   };
-
   const getPrice = (product, supplier) => {
     let price = "";
-    const priceData = product.price.filter(
-      (p) => String(p.supplier) === String(supplier)
-    );
-    if (priceData.length) price = priceData[0].price;
-    console.log(price, product._id);
+    if (supplier) {
+      const priceData = product.price.filter(
+        (p) => String(p.supplier) === String(supplier)
+      );
+      if (priceData.length) price = priceData[0].price;
+    } else {
+      price = product.price.length ? product.price[0].price : "";
+    }
     return price;
   };
 
@@ -513,9 +523,19 @@ function Product() {
                               <a
                                 data-bs-toggle="modal"
                                 data-bs-target="#exampleModal2"
-                                className="show_all"
+                                className="show_all "
                               >
-                                Show All
+                                Show All{" "}
+                                <span>
+                                  <i
+                                    className="fa fa-expand"
+                                    style={{
+                                      fontSize: "15px",
+                                      color: "#FFF",
+                                      marginLeft: "5px",
+                                    }}
+                                  ></i>
+                                </span>
                               </a>
                             </div>
                             <div className="d-flex">
@@ -564,6 +584,16 @@ function Product() {
                                 className="show_all"
                               >
                                 Show All
+                                <span>
+                                  <i
+                                    className="fa fa-expand"
+                                    style={{
+                                      fontSize: "15px",
+                                      color: "#FFF",
+                                      marginLeft: "5px",
+                                    }}
+                                  ></i>
+                                </span>
                               </a>
                             </div>
                             <div className="d-flex">
@@ -658,17 +688,19 @@ function Product() {
                                             <td>
                                               <div className="unit_data">
                                                 <span>{item.units.unit}</span>
-                                                {item.suppliers.map(
-                                                  (item1, index1) => {
-                                                    return (
-                                                      <span key={index1}>
-                                                        {
-                                                          item1.business_trading_name
-                                                        }
-                                                      </span>
-                                                    );
-                                                  }
-                                                )}
+                                                {item.units.unit !== "Per KG"
+                                                  ? item.suppliers.map(
+                                                      (item1, index1) => {
+                                                        return (
+                                                          <span key={index1}>
+                                                            {
+                                                              item1.business_trading_name
+                                                            }
+                                                          </span>
+                                                        );
+                                                      }
+                                                    )
+                                                  : ""}
                                               </div>
                                             </td>
                                             <td>
@@ -678,102 +710,142 @@ function Product() {
                                                   type="number"
                                                   id="price"
                                                   name="price"
-                                                  onChange={(e) =>
-                                                    updatePrice(
-                                                      e,
-                                                      index,
-                                                      "Set One"
-                                                    )
+                                                  defaultValue={
+                                                    item.units.unit === "Per KG"
+                                                      ? getPrice(item, "")
+                                                      : ""
                                                   }
+                                                  onChange={(e) => {
+                                                    item.units.unit !== "Per KG"
+                                                      ? updatePrice(
+                                                          e,
+                                                          index,
+                                                          "Set One"
+                                                        )
+                                                      : updatePrice(
+                                                          e,
+                                                          index,
+                                                          "Set One",
+                                                          "",
+                                                          "Per KG"
+                                                        );
+                                                  }}
                                                 />
-                                                {item.suppliers.map(
-                                                  (item1, index1) => {
-                                                    return (
-                                                      <input
-                                                        key={index1}
-                                                        className="form-control"
-                                                        type="number"
-                                                        id={`price${item1._id}${index}`}
-                                                        name={`price${item1._id}${index}`}
-                                                        value={getPrice(
-                                                          item,
-                                                          item1._id
-                                                        )}
-                                                        onChange={(e) =>
-                                                          updatePrice(
-                                                            e,
-                                                            index,
-                                                            "Set Diff",
-                                                            item1
-                                                          )
-                                                        }
-                                                      />
-                                                    );
-                                                  }
-                                                )}
+                                                {item.units.unit !== "Per KG"
+                                                  ? item.suppliers.map(
+                                                      (item1, index1) => {
+                                                        return (
+                                                          <input
+                                                            key={index1}
+                                                            className="form-control"
+                                                            type="number"
+                                                            id={`price${item1._id}${index}`}
+                                                            name={`price${item1._id}${index}`}
+                                                            value={getPrice(
+                                                              item,
+                                                              item1._id
+                                                            )}
+                                                            onChange={(e) =>
+                                                              updatePrice(
+                                                                e,
+                                                                index,
+                                                                "Set Diff",
+                                                                item1
+                                                              )
+                                                            }
+                                                          />
+                                                        );
+                                                      }
+                                                    )
+                                                  : ""}
                                               </div>
                                             </td>
                                             <td>
-                                              <Link
-                                                className="table_small_btn mb-2"
-                                                to=""
-                                                onClick={() =>
-                                                  updateSellerProd(
-                                                    selectedProduct
-                                                  )
-                                                }
-                                              >
-                                                Set One Price
-                                              </Link>
+                                              {item.units.unit !== "Per KG" ? (
+                                                <Link
+                                                  className="table_small_btn mb-2"
+                                                  to=""
+                                                  onClick={() =>
+                                                    updateSellerProd(
+                                                      selectedProduct
+                                                    )
+                                                  }
+                                                >
+                                                  Set One Price
+                                                </Link>
+                                              ) : (
+                                                <Link
+                                                  className="table_small_btn mb-2"
+                                                  to=""
+                                                  onClick={() =>
+                                                    updateSellerProd(
+                                                      selectedProduct
+                                                    )
+                                                  }
+                                                >
+                                                  Set Price
+                                                </Link>
+                                              )}
                                               <br />
-                                              {item.suppliers.map(
-                                                (item1, index) => {
-                                                  return (
-                                                    <>
-                                                      <Link
-                                                        key={index}
-                                                        className="table_small_btn mb-2"
-                                                        to=""
-                                                        onClick={() =>
-                                                          updateSellerProd(
-                                                            selectedProduct
-                                                          )
-                                                        }
-                                                      >
-                                                        Save Price
-                                                      </Link>
-                                                      <br />
-                                                    </>
-                                                  );
-                                                }
+                                              {item.units.unit !== "Per KG"
+                                                ? item.suppliers.map(
+                                                    (item1, index) => {
+                                                      return (
+                                                        <>
+                                                          <Link
+                                                            key={index}
+                                                            className="table_small_btn mb-2"
+                                                            to=""
+                                                            onClick={() =>
+                                                              updateSellerProd(
+                                                                selectedProduct
+                                                              )
+                                                            }
+                                                          >
+                                                            Save Price
+                                                          </Link>
+                                                          <br />
+                                                        </>
+                                                      );
+                                                    }
+                                                  )
+                                                : ""}
+                                            </td>
+
+                                            <td>
+                                              {item.units.unit !== "Per KG" ? (
+                                                <div className="form-group custom_check_box">
+                                                  <input
+                                                    type="checkbox"
+                                                    id={`gst${index}`}
+                                                    checked={item.add_gst}
+                                                    onClick={() =>
+                                                      updateGST(index)
+                                                    }
+                                                  />
+                                                  <label
+                                                    htmlFor={`gst${index}`}
+                                                  ></label>
+                                                </div>
+                                              ) : (
+                                                ""
                                               )}
                                             </td>
                                             <td>
-                                              <div className="form-group custom_check_box">
-                                                <input
-                                                  type="checkbox"
-                                                  id={`gst${index}`}
-                                                  checked={item.add_gst}
+                                              {item.units.unit !== "Per KG" ? (
+                                                <a
+                                                  data-bs-toggle="modal"
+                                                  data-bs-target="#exampleModal"
+                                                  className="table_small_btn"
                                                   onClick={() =>
-                                                    updateGST(index)
+                                                    setSelectedProduct(item)
                                                   }
-                                                />
-                                                <label
-                                                  htmlFor={`gst${index}`}
-                                                ></label>
-                                              </div>
-                                            </td>
-                                            <td>
-                                              <a
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal"
-                                                className="table_small_btn"
-                                                onClick={() =>
-                                                  setSelectedProduct(item)
-                                                }
-                                              >
-                                                Set/Save
-                                              </a>
+                                                >
+                                                  Set/Save
+                                                </a>
+                                              ) : (
+                                                ""
+                                              )}
                                             </td>
                                             <td>
                                               <div className="form-group Toggle_chekbox_1 Toggle_chekbox_changes d-flex justify-content-center">

@@ -686,6 +686,22 @@ function ProductSingle() {
                                       <span>{varieties.length} Variety</span>
                                     </h3>
                                   </div>
+                                  <div
+                                    className="choose_heading "
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal5"
+                                    style={{ cursor: "pointer" }}
+                                  >
+                                    <h3>
+                                      Show All{" "}
+                                      <span>
+                                        <i
+                                          className="fa fa-expand"
+                                          style={{ fontSize: "15px" }}
+                                        ></i>
+                                      </span>
+                                    </h3>
+                                  </div>
                                 </div>
                                 <div className="d-flex">
                                   <div
@@ -729,14 +745,15 @@ function ProductSingle() {
                                     className="product_show_box"
                                     onClick={() => selectType(item.productId)}
                                   >
-                                    <span className="ellipsis-2">
-                                      {item.type}
-                                    </span>
+                                    <strong>{item.inv}</strong>
+
                                     <img
                                       src={`${process.env.REACT_APP_APIENDPOINTNEW}${item.image}`}
                                       alt=""
                                     />
-                                    <strong>{item.inv}</strong>
+                                    <span className="ellipsis-2">
+                                      {item.type}
+                                    </span>
                                   </Link>
                                 ))}
                               </div>
@@ -1007,6 +1024,7 @@ function ProductSingle() {
                                           <Link
                                             to=""
                                             onClick={() => setPrint("Both")}
+                                            className="pt-3"
                                           >
                                             Both
                                           </Link>

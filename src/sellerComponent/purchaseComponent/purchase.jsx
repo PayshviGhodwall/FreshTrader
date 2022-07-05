@@ -300,7 +300,20 @@ function Purchase() {
                       <tr>
                         <td>{item.supplier.business_trading_name}</td>
                         <td>{item.type}</td>
-                        <td>{item.consign_notes}</td>
+                        <td>
+                          <Link to={`/create-consignment/${item._id}`}>
+                            <span
+                              style={{
+                                cursor: "pointer",
+                                fontWeight: "600",
+                                color: "#fff!important",
+                              }}
+                            >
+                              {" "}
+                              {item.consign_notes}
+                            </span>{" "}
+                          </Link>
+                        </td>
                         <td>{item.con_id}</td>
                         <td>{item.documents}</td>
                         <td>{item.priced}</td>

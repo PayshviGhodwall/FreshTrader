@@ -17,6 +17,7 @@ function AddProductHere() {
   const [varietyValue, setVarietyValue] = useState("");
   const [typeValue, setTypeValue] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const [varietyValueId, setVarietyValueId] = useState("");
   const [typeValueId, setTypeValueId] = useState("");
 
@@ -84,6 +85,9 @@ function AddProductHere() {
     formData.append("category", categoryValue);
     formData.append("variety", varietyValue);
     formData.append("type", typeValue);
+    formData.append("varietyId", varietyValueId);
+    formData.append("typeId", typeValueId);
+
     console.log(selectedFile);
     if (selectedFile) {
       formData.append("image", selectedFile, selectedFile.name);
@@ -105,6 +109,8 @@ function AddProductHere() {
       return;
     } else {
       // Update the state
+      console.log(file);
+      setImageFile(URL.createObjectURL(file));
       setSelectedFile(file);
     }
   };
@@ -203,7 +209,7 @@ function AddProductHere() {
                         <div className="row align-items-start">
                           <div className="col-md-4">
                             <div className="circle">
-                              <img className="profile-pic" src="" />
+                              <img className="profile-pic_1" src={imageFile} />
                             </div>
                           </div>
                           <div className="col">
@@ -223,19 +229,17 @@ function AddProductHere() {
                               </div>
                               <div className="col-6">
                                 <div className="p-image">
-                                  <a
-                                    className="upload-button"
-                                    href="javascript:;"
-                                  >
-                                    <i className="far fa-folder-open"></i>Upload
-                                    Photo
-                                  </a>
-                                  <input
-                                    className="file-upload"
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={(e) => onFileSelection(e)}
-                                  />
+                                  <div class="file file--upload">
+                                    <label for="input-file">
+                                      <i className="far fa-folder-open"></i>
+                                      Upload Photo
+                                    </label>
+                                    <input
+                                      id="input-file"
+                                      type="file"
+                                      onChange={(e) => onFileSelection(e)}
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             </div>

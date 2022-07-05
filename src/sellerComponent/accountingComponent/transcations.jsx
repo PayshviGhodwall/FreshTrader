@@ -11,10 +11,12 @@ import {
   updateTransactions,
 } from "../../apiServices/sellerApiHandler/accountingApiHandler";
 import Header from "../commonComponent/header";
+import { RangeDatePicker } from "react-google-flight-datepicker";
+import "react-google-flight-datepicker/dist/main.css";
 
 function Transcations() {
   const [transaction, setTransaction] = useState([]);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState({ start: "", end: "" });
   const [filterBy, setFilterBy] = useState(0);
   const [sortBy, setSortBy] = useState(0);
   const [model, setModel] = useState(-1);
@@ -27,7 +29,8 @@ function Transcations() {
 
   const getTransactionList = async () => {
     const formData = {
-      date: date,
+      from: date.start,
+      till: date.end,
       filterBy: filterBy,
       sortBy: sortBy,
     };
@@ -159,6 +162,14 @@ function Transcations() {
       await getTransactionList();
     }
   };
+  const onDateChange = (start, end) => {
+    console.log(start, end);
+    if (start && end)
+      setDate({
+        start: start,
+        end: end,
+      });
+  };
 
   return (
     <>
@@ -171,18 +182,19 @@ function Transcations() {
                 <div class="col">
                   <form class="date_select row" action="">
                     <div class="form-group col">
-                      <input class="form-control" type="date" id="date" />
-                    </div>
-                    <div class="form-group col-auto ps-0">
-                      <Link
-                        class="product_comman_btn border-0"
-                        onClick={() =>
-                          setDate(document.getElementById("date").value)
+                      <RangeDatePicker
+                        onChange={(startDate, endDate) =>
+                          onDateChange(startDate, endDate)
                         }
-                        to=""
-                      >
-                        Select date
-                      </Link>
+                        minDate={new Date(1900, 0, 1)}
+                        maxDate={new Date(2100, 0, 1)}
+                        startDatePlaceholder="Start Date"
+                        endDatePlaceholder="End Date"
+                        disabled={false}
+                        className="my-own-class-name mt-4 ml-3"
+                        startWeekDay="monday"
+                        nonFocusable={true}
+                      />
                     </div>
                   </form>
                 </div>

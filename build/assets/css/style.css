@@ -1013,8 +1013,8 @@ strong {
 }
 
 .unit-box-small {
-  height: 60px;
-  width: 60px;
+  height: 80px;
+  width: 80px;
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -1024,7 +1024,7 @@ strong {
 }
 
 .unit-box-small img {
-  max-width: 30px;
+  max-width: 50px;
 }
 
 .product_tables tbody tr:last-child td {
@@ -1429,7 +1429,44 @@ span.plus {
   border-radius: 8px;
   color: #fff !important;
   border: 1px solid #ffffff61;
+  position: relative;
 }
+.unit_inner_box .unit_single i {
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  font-size: 12px;
+}
+.select-supplier-product {
+  background: #a7e66e;
+  padding: 15px 15px;
+  border-radius: 5px;
+}
+.select-supplier-product .unit-box-content {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.select-supplier-product .unit-box-content span {
+  padding-left: 10px;
+  font-size: 14px;
+}
+
+.unit-box-search {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.white {
+  color: #fff !important;
+}
+
+.unit-box-search span {
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .product_show {
   flex-wrap: wrap;
   background-color: #5f6874;
@@ -1445,16 +1482,17 @@ span.plus {
   width: 100%;
   max-width: 17%;
   text-align: center;
-  padding: 11px 0;
+  padding: 3px 8px;
   color: #000 !important;
   display: block;
-  height: 130px;
+  height: 125px;
 }
 .product_show_box span {
   font-weight: 600;
   font-size: 13px;
   margin-bottom: 12px;
   overflow-wrap: break-word;
+  margin-top: 10px;
 }
 .product_show_box img {
   margin: 0 auto;
@@ -1463,9 +1501,10 @@ span.plus {
   object-fit: contain;
 }
 .product_show_box strong {
-  display: block;
+  display: flex;
   font-size: 14px;
   font-weight: 500;
+  justify-content: end;
 }
 .comman_dropdown button {
   display: inline-flex;
@@ -2159,12 +2198,13 @@ span.plus {
 .inventory_main table td {
   text-align: center;
   color: #fff;
-  font-size: 22px;
-  padding: 12px 15px;
+  font-size: 18px;
+  padding: 12px 7px 0px 7px !important;
   border: 2px solid #afb4ba63;
   background-color: #5f6874;
   vertical-align: middle;
   border-top: 0;
+  padding-bottom: 0px;
 }
 .transactions_main table td {
   text-align: center;
@@ -2185,25 +2225,26 @@ span.plus {
 .product_inventry_img {
   background-color: #fff;
   border-radius: 10px;
-  height: 100px;
-  width: 100px;
+  height: 70px;
+  width: 70px;
   margin: 0 auto 12px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .product_inventry_img img {
-  max-width: 56px;
+  max-width: 50px;
 }
 .product_inventry span {
   font-size: 13px;
 }
 .inventory_main table tr td:nth-child(1),
 .inventory_main table tr td:nth-child(2),
-.inventory_main table tr td:nth-child(3) {
+.inventory_main table tr td:nth-child(3),
+.inventory_main table tr td:nth-child(4) {
   border: 0;
   vertical-align: middle;
-  text-align: left;
+  text-align: center;
   font-size: 15px;
   position: relative;
 }
@@ -2211,11 +2252,15 @@ span.plus {
   width: 100px;
 }
 .inventory_main table th:nth-child(2) {
-  width: 140px;
+  width: 150px;
 }
 .inventory_main table th:nth-child(3) {
-  width: 240px;
+  width: 200px;
 }
+.inventory_main table th:nth-child(4) {
+  width: 100px;
+}
+
 .inventory_main .table-responsive::-webkit-scrollbar,
 .transactions_main .table-responsive::-webkit-scrollbar {
   display: none;
@@ -3132,6 +3177,7 @@ span.plus {
   font-size: 24px;
   font-weight: 700;
   border: 1px solid #ffffff75;
+  color: #374251;
 }
 .order_top_mains {
   padding: 12px 16px;
@@ -3511,6 +3557,14 @@ span.plus {
     margin: 0 2px;
     width: 40px;
   }
+  .filter_btn_1 {
+    border-radius: 7px;
+    height: 40px;
+    font-size: 22px;
+    margin: 0 2px;
+    width: 40px;
+  }
+
   .sale_filter_outer {
     margin: 0;
     display: flex;
@@ -4704,6 +4758,12 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-right: 0.7rem;
   overflow: hidden;
 }
+.profile-pic_1 {
+  min-width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+}
 
 .profile-pic img {
   width: 100%;
@@ -5370,6 +5430,134 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #fff !important;
 }
 
+.file {
+  position: relative;
+}
+
+.file > input[type="file"] {
+  display: none;
+}
+
+.file > label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  height: 50px;
+  text-align: center;
+  font-weight: 500;
+  color: #fff !important;
+  border-radius: 10px;
+  justify-content: center;
+  background-color: #8f969e;
+  border: 1px solid #f1f1f142;
+}
+
+.file > label > i {
+  padding-right: 5px;
+}
+
+.file--upload > label {
+  color: hsl(204, 86%, 53%);
+  border-color: hsl(204, 86%, 53%);
+}
+
+.react-google-flight-datepicker .icon-calendar {
+  width: 24px;
+  height: 24px;
+  fill: #a7e66e !important;
+  margin-right: 12px;
+}
+.react-google-flight-datepicker .date-picker {
+  padding: 0 !important;
+}
+.react-google-flight-datepicker .date-placeholder {
+  color: #000 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+.react-google-flight-datepicker .date-picker-input {
+  border: 2px solid #a7e66e !important;
+}
+.react-google-flight-datepicker .day:hover::after {
+  border: 2px solid #a7e66e !important;
+}
+.react-google-flight-datepicker .day.selected.hovered::after {
+  background-color: #a7e66e !important;
+}
+
+.react-google-flight-datepicker .day.hovered {
+  background-color: #cff1af !important;
+}
+.react-google-flight-datepicker .day.selected.hovered {
+  background: linear-gradient(90deg, #fff 50%, #cff1af 50%) !important;
+  color: #fff;
+}
+.react-google-flight-datepicker .day.selected.hovered.end {
+  background: linear-gradient(90deg, #cff1af 50%, #fff 50%) !important;
+  color: #fff;
+}
+.react-google-flight-datepicker .day .background-day.first-day {
+  background-color: #fff !important;
+}
+.react-google-flight-datepicker .day.hovered .background-day {
+  opacity: 0 !important;
+}
+.react-google-flight-datepicker .date:focus::after,
+.react-google-flight-datepicker .date.is-focus::after {
+  border: 2px solid #a7e66e !important;
+}
+.react-google-flight-datepicker .date:focus,
+.react-google-flight-datepicker .date.is-focus {
+  background-color: #fff !important;
+}
+
+.react-google-flight-datepicker .date-picker {
+  margin-top: 0px !important;
+}
+.react-google-flight-datepicker .day .background-day.last-day {
+  background-color: #fff !important;
+}
+.react-google-flight-datepicker .day.hovered.end {
+  background-color: #fff !important;
+}
+.react-google-flight-datepicker .day.hovered.end {
+  background: linear-gradient(90deg, #cff1af 50%, #fff 50%) !important;
+}
+.react-google-flight-datepicker .date-picker-input {
+  height: 47px !important;
+}
+.react-google-flight-datepicker .dialog-footer .submit-button {
+  background-color: #a7e66e !important;
+  color: #000 !important;
+  font-weight: 500 !important;
+}
+.react-google-flight-datepicker .month-calendar {
+  width: 230px !important;
+}
+.react-google-flight-datepicker .dialog-date-picker {
+  width: 585px !important;
+}
+.react-google-flight-datepicker .dialog-header .date-picker-input {
+  width: 100% !important;
+}
+.react-google-flight-datepicker .month-name {
+  color: #000 !important;
+  font-weight: 400 !important;
+}
+.react-google-flight-datepicker .weekdays .weekday {
+  color: #000 !important;
+  font-weight: 400 !important;
+}
+.react-google-flight-datepicker .day .text-day {
+  color: #000 !important;
+}
+.react-google-flight-datepicker .day.selected::after {
+  background-color: #a7e66e !important;
+}
+.react-google-flight-datepicker .selected-date {
+  color: #000 !important;
+  font-weight: 400 !important;
+}
 /*--------------------------------------------------------------
 # Login
 --------------------------------------------------------------*/
@@ -5463,7 +5651,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
   .btn_red {
     background-color: #e73f33;
-    color: #fff;
+    color: #fff !important;
     font-weight: 500;
   }
   .btn_green {
@@ -5774,7 +5962,7 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 8px 22px;
     border-radius: 6px;
     font-size: 15px;
-    color: #374251;
+    color: #374251 !important;
     font-weight: 600;
   }
   .comman_table table tr td {
@@ -5797,7 +5985,7 @@ input[type="number"]::-webkit-outer-spin-button {
     border-top: 0;
   }
   .comman_header_main {
-    padding: 0 32px;
+    padding: 0 32px !important;
   }
   .table_overflow .freshtrader_main_data {
     overflow-x: hidden;
@@ -5827,6 +6015,10 @@ input[type="number"]::-webkit-outer-spin-button {
   .filter_btn img {
     max-width: 50px;
   }
+  .filter_btn_1 img {
+    max-width: 50px;
+  }
+
   .header_change_table table tr th {
     text-align: center;
     padding: 10px 0;
@@ -5837,6 +6029,12 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 16px;
     display: block;
   }
+
+  .order-data-span {
+    color: #fff;
+    float: right;
+    font-size: 14px;
+  }
   .btn_form {
     display: flex;
     align-items: center;
@@ -5845,7 +6043,7 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 8px 22px;
     border-radius: 6px;
     font-size: 15px;
-    color: #374251;
+    color: #374251 !important;
     font-weight: 600;
     border: 0;
     height: 46px;
@@ -5867,22 +6065,37 @@ input[type="number"]::-webkit-outer-spin-button {
     font-weight: 500;
     margin: 4px 0;
     display: block;
+    width: 100px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
   }
   .product_content span {
     font-size: 15px;
     font-weight: 400;
     margin: 4px 0;
     display: block;
+    width: 100px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
   }
   .Add_unitform .form-control {
     height: 46px;
     border-radius: 6px;
     margin-right: 10px;
+    font-size: 15px;
+    background-color: #5f6874 !important;
+    border: 0;
+    color: #fff !important;
+    box-shadow: unset !important;
+    outline: 0;
+    padding: 8px 20px;
   }
   .sorting_modal {
-    top: auto;
+    top: auto !important;
     bottom: 0;
-    height: auto;
+    height: auto !important;
   }
   .sorting_modal .modal-dialog {
     border: 0;
@@ -5958,7 +6171,7 @@ input[type="number"]::-webkit-outer-spin-button {
     display: flex;
     justify-content: center;
     background-color: #a7e66e;
-    color: #374251;
+    color: #374251 !important;
     font-size: 15px;
     font-weight: 600;
     padding: 14px 9px;
@@ -6293,6 +6506,9 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 60px;
     padding: 1px 14px;
     margin: 0 auto;
+    background: #5f6874 !important;
+    color: #fff !important;
+    border: none !important;
   }
   .similer_tablebox .table_btn {
     padding: 10px 17px;
@@ -6396,7 +6612,23 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 8px 6px;
     text-align: center;
     line-height: 18px;
-    color: #fff;
+    color: #fff !important;
+    font-size: 13px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .payment_checkbox_1 a {
+    position: relative;
+    background-color: #8ad145;
+    border: 1px solid #8ad145;
+    border-radius: 8px;
+    padding: 8px 6px;
+    text-align: center;
+    line-height: 18px;
+    color: #fff !important;
     font-size: 13px;
     height: 52px;
     display: flex;

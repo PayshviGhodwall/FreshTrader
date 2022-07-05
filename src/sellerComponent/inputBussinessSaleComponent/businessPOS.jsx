@@ -22,6 +22,8 @@ import {
 } from "../../apiServices/sellerApiHandler/productApiHandler";
 import moment from "moment";
 import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
+
 function BusinessPOS() {
   const [business, setBusiness] = useState("");
   const [overdue, setOverdue] = useState(false);
@@ -56,6 +58,7 @@ function BusinessPOS() {
   const [emailBuyer, setEmailBuyer] = useState(false);
   const [transactionId, setTransactionId] = useState([]);
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     getBusiness();
@@ -70,6 +73,21 @@ function BusinessPOS() {
     const { data } = await getBusinessDetail(id);
     if (!data.error) {
       setBusiness(data.results.buyer);
+      if (location.state.data) {
+        setProducts(location.state.data.product);
+        setOrderId(location.state.data.orderId);
+        setPayment(location.state.data.payment);
+        if (location.state.data.payment !== "Draft Invoice")
+          setPrint("Delivery Docket");
+        const quantity = location.state.data.product.reduce(function (a, b) {
+          return a + b.quantity;
+        }, 0);
+        const total = location.state.data.product.reduce(function (a, b) {
+          return a + b.quantity * b.per_unit_price;
+        }, 0);
+        setTotalUnit(quantity);
+        setTotalPrice(total.toFixed(2));
+      }
     }
   };
 
@@ -849,10 +867,26 @@ function BusinessPOS() {
                             <div className="product_main_top">
                               <div className="row">
                                 <div className="col-12 d-flex align-items-center justify-content-between mb-2">
-                                  <div className="choose_heading">
+                                  <div className="choose_heading ">
                                     <h3>
                                       Choose Variety{" "}
                                       <span>{varieties.length} Variety</span>
+                                    </h3>
+                                  </div>
+                                  <div
+                                    className="choose_heading "
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal5"
+                                    style={{ cursor: "pointer" }}
+                                  >
+                                    <h3>
+                                      Show All{" "}
+                                      <span>
+                                        <i
+                                          className="fa fa-expand"
+                                          style={{ fontSize: "15px" }}
+                                        ></i>
+                                      </span>
                                     </h3>
                                   </div>
                                 </div>
@@ -898,14 +932,15 @@ function BusinessPOS() {
                                     className="product_show_box"
                                     onClick={() => selectType(item.productId)}
                                   >
-                                    <span className="ellipsis-2">
-                                      {item.type}
-                                    </span>
+                                    <strong>{item.inv}</strong>
+
                                     <img
                                       src={`${process.env.REACT_APP_APIENDPOINTNEW}${item.image}`}
                                       alt=""
                                     />
-                                    <strong>{item.inv}</strong>
+                                    <span className="ellipsis-2">
+                                      {item.type}
+                                    </span>
                                   </Link>
                                 ))}
                               </div>
@@ -1176,6 +1211,7 @@ function BusinessPOS() {
                                           <Link
                                             to=""
                                             onClick={() => setPrint("Both")}
+                                            className="pt-3"
                                           >
                                             Both
                                           </Link>

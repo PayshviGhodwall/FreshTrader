@@ -16,6 +16,8 @@ import { getCustomerTransactions } from "../../apiServices/sellerApiHandler/acco
 import Header from "../commonComponent/header";
 import { useParams } from "react-router-dom";
 import { getBusinessDetail } from "../../apiServices/sellerApiHandler/inputBusinessSaleApiHandler";
+import { RangeDatePicker } from "react-google-flight-datepicker";
+import "react-google-flight-datepicker/dist/main.css";
 
 function CustomerFiles() {
   const [transaction, setTransaction] = useState([]);
@@ -57,6 +59,11 @@ function CustomerFiles() {
       await getTransactionList();
     }
   };
+
+  const onDateChange = (start, end) => {
+    console.log(start, end);
+  };
+
   const changePrice = async (price, index, index2) => {
     let transactionData = [...transaction];
     transactionData[index].products[index2].price = +price;
@@ -222,24 +229,25 @@ function CustomerFiles() {
                     <div class="col-sm pe-md-4 mb-md-0 mb-2">
                       <form class="date_select row" action="">
                         <div class="form-group col pe-md-1">
-                          <input class="form-control" type="date" id="date" />
-                        </div>
-                        <div class="form-group col-auto ps-0">
-                          <Link
-                            class="product_comman_btn border-0"
-                            onClick={() =>
-                              setDate(document.getElementById("date").value)
+                          <RangeDatePicker
+                            onChange={(startDate, endDate) =>
+                              onDateChange(startDate, endDate)
                             }
-                            to=""
-                          >
-                            Select date
-                          </Link>
+                            minDate={new Date(1900, 0, 1)}
+                            maxDate={new Date(2100, 0, 1)}
+                            startDatePlaceholder="Start Date"
+                            endDatePlaceholder="End Date"
+                            disabled={false}
+                            className="my-own-class-name mt-4 ml-3"
+                            startWeekDay="monday"
+                            nonFocusable={true}
+                          />
                         </div>
                       </form>
                     </div>
-                    <div class="col-md-auto">
+                    <div class="col-md-auto py-1">
                       <div class="row justify-content-xl-start justify-content-lg-end justify-content-md-start justify-content-center  mb-md-0 mb-3">
-                        <div class="col-auto px-1">
+                        <div class="col-auto px-1 ">
                           <div class="dropdown comman_dropdown mx-0">
                             <button
                               class="product_comman_btn dropdown-toggle"

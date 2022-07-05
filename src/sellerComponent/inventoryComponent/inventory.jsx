@@ -5,6 +5,8 @@ import {
   printInventory,
   resetCarryOver,
   resetInventory,
+  resetPhysicalStock,
+  resetSoldToday,
   updateOverselling,
 } from "../../apiServices/sellerApiHandler/inventoryApiHandler";
 import { Link } from "react-router-dom";
@@ -100,15 +102,15 @@ function Inventory() {
     let total = 0;
     if (i === 1) {
       total = units.reduce(function (a, b) {
-        return a + b.carry_over;
+        return a + b.purchase;
       }, 0);
     } else if (i === 2) {
       total = units.reduce(function (a, b) {
-        return a + b.purchase;
+        return a + b.total_sold;
       }, 0);
     } else if (i === 3) {
       total = units.reduce(function (a, b) {
-        return a + b.ready_to_sell;
+        return a + b.carry_over;
       }, 0);
     } else if (i === 4) {
       total = units.reduce(function (a, b) {
@@ -135,7 +137,7 @@ function Inventory() {
         return a + b.remaining;
       }, 0);
 
-      total = rem - total;
+      total = total ? rem - total : 0;
     }
     return total;
   };
@@ -149,6 +151,19 @@ function Inventory() {
 
   const resetCO = async () => {
     const { data } = await resetCarryOver();
+    if (!data.error) {
+      await getInventoryList();
+    }
+  };
+
+  const soldToday = async () => {
+    const { data } = await resetSoldToday();
+    if (!data.error) {
+      await getInventoryList();
+    }
+  };
+  const phStock = async () => {
+    const { data } = await resetPhysicalStock();
     if (!data.error) {
       await getInventoryList();
     }
@@ -243,6 +258,18 @@ function Inventory() {
                       </Link>
                     </li>
                     <li>
+                      <Link className="dropdown-item" to="" onClick={soldToday}>
+                        Reset Sold Today
+                      </Link>
+                    </li>
+
+                    <li>
+                      <Link className="dropdown-item" to="" onClick={phStock}>
+                        Reset Ph/Stock
+                      </Link>
+                    </li>
+
+                    <li>
                       <Link className="dropdown-item" to="">
                         Adjust C/Over
                       </Link>
@@ -268,6 +295,11 @@ function Inventory() {
                         onClick={() => print(2)}
                       >
                         Print Stock Sheet
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="">
+                        Undo
                       </Link>
                     </li>
                   </ul>
@@ -319,21 +351,25 @@ function Inventory() {
                 <thead>
                   <tr style={{ background: "#5f6874" }}>
                     <th>Product</th>
+                    <th>Type</th>
                     <th>Unit</th>
+
                     <th>
                       Total <br />
                       Supplier (CON#)
                     </th>
+                    <th>Purchased</th>
+                    <th>
+                      Total <br />
+                      Sold
+                    </th>
                     <th>
                       Carry <br /> over{" "}
                     </th>
+
                     <th>
-                      Today's <br /> Purchases{" "}
+                      Sold <br /> Today
                     </th>
-                    <th>
-                      Ready <br /> To Sell{" "}
-                    </th>
-                    <th>Sold </th>
                     <th>Void </th>
                     <th>
                       Remaining <br /> Stock{" "}
@@ -349,7 +385,7 @@ function Inventory() {
                     <>
                       <tr key={index}>
                         <td
-                          colSpan={11}
+                          colSpan={12}
                           className="prdocuct_head"
                           style={{ textAlign: "center" }}
                         >
@@ -380,13 +416,21 @@ function Inventory() {
                                             alt=""
                                           />
                                         </div>
-                                        <span>
-                                          {item1.productId?.type?.type}
-                                        </span>
                                       </div>
                                     ) : (
                                       ""
                                     )}
+                                  </td>
+                                  <td
+                                    className={
+                                      index2 === 0 && index3 === 0
+                                        ? "border_design"
+                                        : ""
+                                    }
+                                  >
+                                    {index3 === 0
+                                      ? item2.productId?.type.type
+                                      : ""}
                                   </td>
                                   <td
                                     className={
@@ -418,7 +462,7 @@ function Inventory() {
                                     }
                                   >
                                     {item3.consignment
-                                      ? item3.carry_over
+                                      ? item3.purchase
                                       : getTotal(
                                           item2.productId.type._id,
                                           item2.productId.units._id,
@@ -433,13 +477,14 @@ function Inventory() {
                                     }
                                   >
                                     {item3.consignment
-                                      ? item3.purchase
+                                      ? item3.total_sold
                                       : getTotal(
                                           item2.productId.type._id,
                                           item2.productId.units._id,
                                           2
                                         )}
                                   </td>
+
                                   <td
                                     className={
                                       index2 === 0 && index3 === 0
@@ -448,13 +493,14 @@ function Inventory() {
                                     }
                                   >
                                     {item3.consignment
-                                      ? item3.ready_to_sell
+                                      ? item3.carry_over
                                       : getTotal(
                                           item2.productId.type._id,
                                           item2.productId.units._id,
                                           3
                                         )}
                                   </td>
+
                                   <td
                                     className={
                                       index2 === 0 && index3 === 0
@@ -509,8 +555,6 @@ function Inventory() {
                                   >
                                     {item3.consignment
                                       ? item3.physical_stock
-                                        ? item3.physical_stock
-                                        : item3.remaining
                                       : getTotal(
                                           item2.productId.type._id,
                                           item2.productId.units._id,
@@ -525,10 +569,9 @@ function Inventory() {
                                     }
                                   >
                                     {item3.consignment
-                                      ? item3.remaining -
-                                        (item3.physical_stock
-                                          ? item3.physical_stock
-                                          : item3.remaining)
+                                      ? item3.physical_stock
+                                        ? item3.remaining - item3.physical_stock
+                                        : 0
                                       : getTotal(
                                           item2.productId.type._id,
                                           item2.productId.units._id,

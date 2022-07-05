@@ -163,7 +163,28 @@ function SelectSupplier() {
                   action=""
                   class="row align-items-center justify-content-md-between justify-content-start"
                 >
-                  <div class="col-xl-5 col-lg-6 col-md-7 ps-md-0 mb-md-0 mb-2">
+                  <div class="col-xl-4 col-lg-5 col-md-6 ps-md-0 mb-md-0 mb-2">
+                    <div className="select-supplier-product">
+                      <div className="product-detail d-flex">
+                        <span className="unit-box-small">
+                          <img
+                            src={`${process.env.REACT_APP_APIENDPOINTNEW}${data?.type?.image}`}
+                            alt=""
+                          />
+                        </span>
+                        <div className="unit-box-content">
+                          <span>{data?.type?.type}</span>
+                          <span> {data?.variety?.variety}</span>{" "}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-5 col-lg-6 col-md-7 ps-md-0 mb-md-0 ">
+                    <div className="unit-box-search">
+                      <span>Select all the suppliers for this product</span>{" "}
+                    </div>
+
                     <div class="form-group d-flex">
                       <input
                         type="search"
@@ -197,27 +218,6 @@ function SelectSupplier() {
         <div class="container-fluid px-0">
           <div class="Supplier_index_table comman_table_design">
             <div class="table-responsive">
-              <div class="prdocuct_head d-flex">
-                <div class="m-auto">
-                  <div className="product-detail d-flex">
-                    <span className="unit-box-small">
-                      <img
-                        src={`${process.env.REACT_APP_APIENDPOINTNEW}${data?.type?.image}`}
-                        alt=""
-                      />
-                    </span>
-                    <span style={{ marginRight: "20px", marginTop: "20px" }}>
-                      Category: {data?.category}
-                    </span>
-                    <span style={{ marginRight: "20px", marginTop: "20px" }}>
-                      Variety: {data?.variety?.variety}
-                    </span>
-                    <span style={{ marginRight: "20px", marginTop: "20px" }}>
-                      Type: {data?.type?.type}
-                    </span>
-                  </div>
-                </div>
-              </div>
               <table class="table">
                 <thead>
                   <tr style={{ background: "#374251" }}>

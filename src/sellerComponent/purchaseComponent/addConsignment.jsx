@@ -137,6 +137,25 @@ function AddConsignment() {
 
     setProducts(products.concat([add]));
   };
+
+  console.log(products);
+
+  const onChangeProductValue = async (value, index, no) => {
+    let values = [...products];
+    if (no === 1) values[index].consign = value;
+    else if (no === 2) values[index].advised = value;
+    else if (no === 3) values[index].received = value;
+    else if (no === 4) values[index].waste = value;
+    else if (no === 5) values[index].graded = value;
+    else if (no === 6) values[index].cost_per_unit = value;
+    else if (no === 7) values[index].average_sales_price = value;
+    values[index].total_cost =
+      values[index].received * values[index].cost_per_unit;
+    values[index].inv_on_hand = values[index].received;
+
+    setProducts(values);
+  };
+
   const deleteProduct = async (id) => {
     let product = products;
     product = product.filter((item) => String(item.productId) !== String(id));
@@ -554,6 +573,9 @@ function AddConsignment() {
                             id=""
                             name=""
                             defaultValue={product.consign}
+                            onChange={(e) =>
+                              onChangeProductValue(e.target.value, index, 1)
+                            }
                           />
                         </td>
                         <td>
@@ -563,6 +585,9 @@ function AddConsignment() {
                             id=""
                             name=""
                             defaultValue={product.advised}
+                            onChange={(e) =>
+                              onChangeProductValue(e.target.value, index, 2)
+                            }
                           />
                         </td>
                         <td>
@@ -572,6 +597,9 @@ function AddConsignment() {
                             id=""
                             name=""
                             defaultValue={product.received}
+                            onChange={(e) =>
+                              onChangeProductValue(e.target.value, index, 3)
+                            }
                           />
                         </td>
                         <td>
@@ -581,6 +609,9 @@ function AddConsignment() {
                             defaultValue={product.waste}
                             id=""
                             name=""
+                            onChange={(e) =>
+                              onChangeProductValue(e.target.value, index, 4)
+                            }
                           />
                         </td>
                         <td>
@@ -590,6 +621,9 @@ function AddConsignment() {
                             defaultValue={product.graded}
                             id=""
                             name=""
+                            onChange={(e) =>
+                              onChangeProductValue(e.target.value, index, 5)
+                            }
                           />
                         </td>
                         <td>
@@ -599,6 +633,9 @@ function AddConsignment() {
                             defaultValue={product.cost_per_unit}
                             id=""
                             name=""
+                            onChange={(e) =>
+                              onChangeProductValue(e.target.value, index, 6)
+                            }
                           />
                         </td>
                         <td>
@@ -635,6 +672,9 @@ function AddConsignment() {
                             defaultValue={product.average_sales_price}
                             id=""
                             name=""
+                            onChange={(e) =>
+                              onChangeProductValue(e.target.value, index, 7)
+                            }
                           />
                         </td>
                         <td>
