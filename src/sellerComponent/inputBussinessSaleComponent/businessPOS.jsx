@@ -42,6 +42,8 @@ function BusinessPOS() {
   const [productConsignment, setProductConsignment] = useState("");
   const [productUnits, setProductUnits] = useState([]);
   const [productUnit, setProductUnit] = useState(0);
+  const [showPerKG, setShowPerKG] = useState(true);
+  const [perKG, setPerKG] = useState(false);
   const [productQuantity, setProductQuantity] = useState(0);
   const [productPrice, setProductPrice] = useState(0);
   const [products, setProducts] = useState([]);
@@ -156,6 +158,10 @@ function BusinessPOS() {
     const { data } = await getMyProductUnit(productId);
     if (!data.error) {
       setProductUnits(data.results.units);
+      const perKGUnit = data.results.units.filter(
+        (un) => un.units.unit === "Per KG"
+      );
+      setShowPerKG(perKGUnit.length ? true : false);
     }
   };
 
@@ -169,9 +175,24 @@ function BusinessPOS() {
   const changeProductUnit = async (index) => {
     setProductUnit(index);
     await getConsignments(productUnits[index]._id);
-    setProductPrice(
-      productUnits[index].price.length ? productUnits[index].price[0].price : 0
-    );
+    if (perKG) {
+      const price = productUnits.filter((un) => un.units.unit === "Per KG")[0]
+        .price;
+      setProductPrice(price.length ? +price[0].price : 0);
+    } else {
+      setProductPrice(
+        productUnits[index].price.length
+          ? +productUnits[index].price[0].price
+          : 0
+      );
+    }
+  };
+
+  const changePerKGSource = async (value) => {
+    setPerKG(value);
+    const price = productUnits.filter((un) => un.units.unit === "Per KG")[0]
+      .price;
+    setProductPrice(price.length ? price[0].price : 0);
   };
 
   const changeConsignment = (consignmentId) => {
@@ -207,7 +228,8 @@ function BusinessPOS() {
       product: productUnits[productUnit],
       quantity: productQuantity,
       consignment: productConsignment,
-      per_unit_price: productPrice,
+      per_unit_price: +productPrice,
+      per_kg_source: perKG,
     };
     setProducts([...products, ...[product]]);
     const quantity = [...products, ...[product]].reduce(function (a, b) {
@@ -225,6 +247,8 @@ function BusinessPOS() {
     setProductConsignment("");
     setProductUnit(0);
     setType("");
+    setPerKG(false);
+    setShowPerKG(true);
   };
 
   const selectProductToAmend = async (item, index) => {
@@ -330,7 +354,9 @@ function BusinessPOS() {
     for (const product of products) {
       productList.push({
         productId: product.product._id,
-        quantity: product.quantity,
+        quantity: product.per_kg_source
+          ? (product.quantity / product.product.units.weight).toFixed(2)
+          : product.quantity,
         price: product.per_unit_price,
         total: product.per_unit_price * product.quantity,
         consignment: product.consignment._id,
@@ -1469,10 +1495,14 @@ function BusinessPOS() {
                                   Default <br />
                                   Unit
                                 </th>
-                                <th style={{ border: "none" }}>
-                                  Per Kg <br />
-                                  Source
-                                </th>
+                                {showPerKG ? (
+                                  <th style={{ border: "none" }}>
+                                    Per Kg <br />
+                                    Source
+                                  </th>
+                                ) : (
+                                  ""
+                                )}
                                 <th style={{ border: "none" }}>
                                   Select <br />
                                   Unit
@@ -1502,22 +1532,46 @@ function BusinessPOS() {
                                       ></label>
                                     </div>
                                   </td>
+                                  {showPerKG ? (
+                                    <td>
+                                      {item.units.unit !== "Per KG" ? (
+                                        <div className="Business_radio">
+                                          <input
+                                            className="d-none"
+                                            type="radio"
+                                            id={`source${index}`}
+                                            name="source"
+                                            checked={
+                                              index === productUnit && perKG
+                                                ? true
+                                                : false
+                                            }
+                                            onChange={(e) =>
+                                              changePerKGSource(
+                                                e.target.checked
+                                              )
+                                            }
+                                          />
+                                          <label
+                                            className="p-0"
+                                            for={`source${index}`}
+                                          ></label>
+                                        </div>
+                                      ) : (
+                                        ""
+                                      )}
+                                    </td>
+                                  ) : (
+                                    ""
+                                  )}
                                   <td>
-                                    <div className="Business_radio">
-                                      <input
-                                        className="d-none"
-                                        type="radio"
-                                        id={`source${index}`}
-                                        name="source"
-                                      />
-                                      <label
-                                        className="p-0"
-                                        for={`source${index}`}
-                                      ></label>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div className="unit_bg d-flex align-items-center justify-content-between">
+                                    <div
+                                      className={
+                                        index === productUnit
+                                          ? "unit_bg_1 d-flex align-items-center justify-content-between"
+                                          : "unit_bg d-flex align-items-center justify-content-between"
+                                      }
+                                    >
                                       <span>{item.units.unit}</span>
                                       <span>
                                         {item.price.length

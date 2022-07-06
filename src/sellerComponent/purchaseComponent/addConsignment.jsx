@@ -148,10 +148,9 @@ function AddConsignment() {
     else if (no === 4) values[index].waste = value;
     else if (no === 5) values[index].graded = value;
     else if (no === 6) values[index].cost_per_unit = value;
-    else if (no === 7) values[index].average_sales_price = value;
+
     values[index].total_cost =
       values[index].received * values[index].cost_per_unit;
-    values[index].inv_on_hand = values[index].received;
 
     setProducts(values);
   };
@@ -647,81 +646,15 @@ function AddConsignment() {
                             name=""
                           />
                         </td>
-                        <td>
-                          <input
-                            class="consiment_data_box"
-                            type="text"
-                            defaultValue={product.sold}
-                            id=""
-                            name=""
-                          />
-                        </td>
-                        <td>
-                          <input
-                            class="consiment_data_box"
-                            type="text"
-                            defaultValue={product.sold_percentage}
-                            id=""
-                            name=""
-                          />
-                        </td>
-                        <td>
-                          <input
-                            class="consiment_data_box"
-                            type="text"
-                            defaultValue={product.average_sales_price}
-                            id=""
-                            name=""
-                            onChange={(e) =>
-                              onChangeProductValue(e.target.value, index, 7)
-                            }
-                          />
-                        </td>
-                        <td>
-                          <input
-                            class="consiment_data_box"
-                            type="text"
-                            defaultValue={product.void}
-                            id=""
-                            name=""
-                          />
-                        </td>
-                        <td>
-                          <input
-                            class="consiment_data_box"
-                            type="text"
-                            defaultValue={product.total_sales}
-                            id=""
-                            name=""
-                          />
-                        </td>
-                        <td>
-                          <input
-                            class="consiment_data_box"
-                            type="text"
-                            defaultValue={product.inv_on_hand}
-                            id=""
-                            name=""
-                          />
-                        </td>
-                        <td>
-                          <input
-                            class="consiment_data_box"
-                            type="text"
-                            defaultValue={product.gross_profit}
-                            id=""
-                            name=""
-                          />
-                        </td>
-                        <td>
-                          <input
-                            class="consiment_data_box"
-                            type="text"
-                            defaultValue={product.gross_profit_percentage}
-                            id=""
-                            name=""
-                          />
-                        </td>
+                        <td>0</td>
+                        <td>0%</td>
+                        <td>${product.average_sales_price}</td>
+
+                        <td>$0</td>
+                        <td>0</td>
+                        <td>{product.inv_on_hand}</td>
+                        <td>$0</td>
+                        <td>0%</td>
                         <td>
                           <Link
                             class="icon_design"

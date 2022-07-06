@@ -656,7 +656,7 @@ function CreateConsignment() {
                         <input
                           class="consiment_data_box"
                           type="text"
-                          defaultValue={product.void}
+                          defaultValue={product.total_sales}
                           id=""
                           name=""
                         />
@@ -665,7 +665,7 @@ function CreateConsignment() {
                         <input
                           class="consiment_data_box"
                           type="text"
-                          defaultValue={product.total_sales}
+                          defaultValue={product.void}
                           id=""
                           name=""
                         />

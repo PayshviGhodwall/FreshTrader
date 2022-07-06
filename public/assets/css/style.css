@@ -1995,6 +1995,14 @@ span.plus {
   color: #fff;
   font-size: 12px;
 }
+.unit_bg_1 {
+  background-color: #8ad145;
+  padding: 10px 9px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 12px;
+}
+
 .keyboard_btn {
   background-color: #8f969e;
   border: 1px solid #ffffff59;
@@ -2204,7 +2212,7 @@ span.plus {
   background-color: #5f6874;
   vertical-align: middle;
   border-top: 0;
-  padding-bottom: 0px;
+  padding-bottom: 10px !important;
 }
 .transactions_main table td {
   text-align: center;
@@ -2219,6 +2227,17 @@ span.plus {
 .transactions_main .table tbody {
   background-color: #5f6874;
 }
+/* .table-fixed {
+  height: 480px;
+  overflow-y: auto;
+}
+.inventory_main table th {
+  position: sticky;
+  top: 0px;
+  z-index: 999;
+  background-color: #374251;
+} */
+
 .product_inventry {
   text-align: center;
 }

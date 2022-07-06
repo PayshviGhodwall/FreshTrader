@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Header from "../commonComponent/header";
 import {
+  adjustCarryOver,
+  adjustInventory,
   getInventory,
   printInventory,
   resetCarryOver,
   resetInventory,
   resetPhysicalStock,
   resetSoldToday,
+  undoInventory,
   updateOverselling,
 } from "../../apiServices/sellerApiHandler/inventoryApiHandler";
 import { Link } from "react-router-dom";
@@ -16,6 +19,9 @@ function Inventory() {
   const [variety, setVariety] = useState([]);
   const [search, setSearch] = useState("");
   const [overselling, setOverselling] = useState(false);
+  const [carryOver, setCarryOver] = useState(false);
+  const [updatedInv, setUpdatedInv] = useState([]);
+  const [undo, setUndo] = useState([]);
 
   useEffect(() => {
     getInventoryList();
@@ -78,6 +84,13 @@ function Inventory() {
         units.map((item) => [item.productId.units.unit, item])
       ).values(),
     ];
+    list.sort((a, b) =>
+      a.productId.units.weight > b.productId.units.weight
+        ? 1
+        : b.productId.units.weight > a.productId.units.weight
+        ? -1
+        : 0
+    );
     return list;
   };
 
@@ -139,7 +152,7 @@ function Inventory() {
 
       total = total ? rem - total : 0;
     }
-    return total;
+    return total.toFixed(2);
   };
 
   const reset = async () => {
@@ -187,6 +200,91 @@ function Inventory() {
       setOverselling(value);
     }
   };
+
+  const adjustInv = async (value, id, index) => {
+    const prev = inventory.filter((a) => String(a._id) === String(id));
+
+    const formData = {
+      inventoryId: id,
+      purchase: index === "p" ? value : prev[0].purchase,
+      total_sold: index === "ts" ? value : prev[0].total_sold,
+      voids: index === "v" ? value : prev[0].void,
+      physical_stock: index === "ph" ? value : prev[0].physical_stock,
+    };
+    setTimeout(async () => {
+      const { data } = await adjustInventory(formData);
+      if (!data.error) {
+        await getInventoryList();
+        let prevValue = [...undo];
+        prevValue.push({
+          _id: prev[0]._id,
+          carry_over: prev[0].carry_over,
+          purchase: prev[0].purchase,
+          total_sold: prev[0].total_sold,
+          voids: prev[0].void,
+          physical_stock: prev[0].physical_stock,
+        });
+        setUndo(prevValue);
+      }
+    }, 2000);
+  };
+  console.log(updatedInv);
+
+  const changeCarryOver = async (id, value) => {
+    const prev = inventory.filter((a) => String(a._id) === String(id));
+    const upInv = updatedInv.filter((a) => String(a._id) === String(id));
+
+    let carry = [];
+    if (upInv.length) {
+      carry = carry.map((item) => {
+        if (String(item._id) === String(id)) item.carry_over = +value;
+        return item;
+      });
+    } else {
+      carry.push({ _id: id, carry_over: +value });
+      console.log(carry);
+    }
+
+    setUpdatedInv([...carry]);
+  };
+
+  const adjCarryOver = async () => {
+    const formData = {
+      inventoryIds: updatedInv,
+    };
+    const { data } = await adjustCarryOver(formData);
+    if (!data.error) {
+      let prevValue = [...undo];
+      for (const inv of inventory) {
+        if (inv.consignment) {
+          prevValue.push({
+            _id: inv._id,
+            carry_over: inv.carry_over,
+            purchase: inv.purchase,
+            total_sold: inv.total_sold,
+            voids: inv.void,
+            physical_stock: inv.physical_stock,
+          });
+        }
+      }
+
+      setUndo(prevValue);
+      await getInventoryList();
+    }
+  };
+
+  const undoFunction = async () => {
+    if (undo.length) {
+      const formData = {
+        inventoryIds: undo,
+      };
+      const { data } = await undoInventory(formData);
+      if (!data.error) {
+        await getInventoryList();
+      }
+    }
+  };
+
   return (
     <>
       <Header />
@@ -270,12 +368,20 @@ function Inventory() {
                     </li>
 
                     <li>
-                      <Link className="dropdown-item" to="">
+                      <Link
+                        className="dropdown-item"
+                        to=""
+                        onClick={() => setCarryOver(true)}
+                      >
                         Adjust C/Over
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" to="">
+                      <Link
+                        className="dropdown-item"
+                        to=""
+                        onClick={() => adjCarryOver()}
+                      >
                         Saves Remain C/Overs
                       </Link>
                     </li>
@@ -298,7 +404,11 @@ function Inventory() {
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" to="">
+                      <Link
+                        className="dropdown-item"
+                        to=""
+                        onClick={undoFunction}
+                      >
                         Undo
                       </Link>
                     </li>
@@ -346,7 +456,7 @@ function Inventory() {
         </div>
         <div className="container-fluid px-0">
           <div className="inventory_main">
-            <div className="table-responsive">
+            <div className="table-responsive table-fixed">
               <table className="table">
                 <thead>
                   <tr style={{ background: "#5f6874" }}>
@@ -428,7 +538,7 @@ function Inventory() {
                                         : ""
                                     }
                                   >
-                                    {index3 === 0
+                                    {index2 === 0 && index3 === 0
                                       ? item2.productId?.type.type
                                       : ""}
                                   </td>
@@ -461,13 +571,27 @@ function Inventory() {
                                         : ""
                                     }
                                   >
-                                    {item3.consignment
-                                      ? item3.purchase
-                                      : getTotal(
-                                          item2.productId.type._id,
-                                          item2.productId.units._id,
-                                          1
-                                        )}
+                                    {item3.consignment ? (
+                                      <input
+                                        class="consiment_data_box"
+                                        type="number"
+                                        name=""
+                                        defaultValue={item3.purchase}
+                                        onChange={(e) =>
+                                          adjustInv(
+                                            e.target.value,
+                                            item3._id,
+                                            "p"
+                                          )
+                                        }
+                                      />
+                                    ) : (
+                                      getTotal(
+                                        item2.productId.type._id,
+                                        item2.productId.units._id,
+                                        1
+                                      )
+                                    )}
                                   </td>
                                   <td
                                     className={
@@ -476,13 +600,27 @@ function Inventory() {
                                         : ""
                                     }
                                   >
-                                    {item3.consignment
-                                      ? item3.total_sold
-                                      : getTotal(
-                                          item2.productId.type._id,
-                                          item2.productId.units._id,
-                                          2
-                                        )}
+                                    {item3.consignment ? (
+                                      <input
+                                        class="consiment_data_box"
+                                        type="number"
+                                        name=""
+                                        defaultValue={item3.total_sold}
+                                        onChange={(e) =>
+                                          adjustInv(
+                                            e.target.value,
+                                            item3._id,
+                                            "ts"
+                                          )
+                                        }
+                                      />
+                                    ) : (
+                                      getTotal(
+                                        item2.productId.type._id,
+                                        item2.productId.units._id,
+                                        2
+                                      )
+                                    )}
                                   </td>
 
                                   <td
@@ -492,13 +630,26 @@ function Inventory() {
                                         : ""
                                     }
                                   >
-                                    {item3.consignment
-                                      ? item3.carry_over
-                                      : getTotal(
-                                          item2.productId.type._id,
-                                          item2.productId.units._id,
-                                          3
-                                        )}
+                                    {item3.consignment && carryOver ? (
+                                      <input
+                                        class="consiment_data_box"
+                                        type="number"
+                                        name=""
+                                        defaultValue={item3.carry_over}
+                                        onChange={(e) =>
+                                          changeCarryOver(
+                                            item3._id,
+                                            e.target.value
+                                          )
+                                        }
+                                      />
+                                    ) : (
+                                      getTotal(
+                                        item2.productId.type._id,
+                                        item2.productId.units._id,
+                                        3
+                                      )
+                                    )}
                                   </td>
 
                                   <td
@@ -523,13 +674,27 @@ function Inventory() {
                                         : ""
                                     }
                                   >
-                                    {item3.consignment
-                                      ? item3.void
-                                      : getTotal(
-                                          item2.productId.type._id,
-                                          item2.productId.units._id,
-                                          5
-                                        )}
+                                    {item3.consignment ? (
+                                      <input
+                                        class="consiment_data_box"
+                                        type="number"
+                                        name=""
+                                        defaultValue={item3.void}
+                                        onChange={(e) =>
+                                          adjustInv(
+                                            e.target.value,
+                                            item3._id,
+                                            "v"
+                                          )
+                                        }
+                                      />
+                                    ) : (
+                                      getTotal(
+                                        item2.productId.type._id,
+                                        item2.productId.units._id,
+                                        5
+                                      )
+                                    )}
                                   </td>
                                   <td
                                     className={
@@ -539,7 +704,7 @@ function Inventory() {
                                     }
                                   >
                                     {item3.consignment
-                                      ? item3.remaining
+                                      ? item3.remaining.toFixed(2)
                                       : getTotal(
                                           item2.productId.type._id,
                                           item2.productId.units._id,
@@ -553,13 +718,27 @@ function Inventory() {
                                         : ""
                                     }
                                   >
-                                    {item3.consignment
-                                      ? item3.physical_stock
-                                      : getTotal(
-                                          item2.productId.type._id,
-                                          item2.productId.units._id,
-                                          7
-                                        )}
+                                    {item3.consignment ? (
+                                      <input
+                                        class="consiment_data_box"
+                                        type="number"
+                                        name=""
+                                        defaultValue={item3.physical_stock}
+                                        onChange={(e) =>
+                                          adjustInv(
+                                            e.target.value,
+                                            item3._id,
+                                            "ph"
+                                          )
+                                        }
+                                      />
+                                    ) : (
+                                      getTotal(
+                                        item2.productId.type._id,
+                                        item2.productId.units._id,
+                                        7
+                                      )
+                                    )}
                                   </td>
                                   <td
                                     className={

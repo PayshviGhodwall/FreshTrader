@@ -523,8 +523,8 @@ function CompleteConsignment() {
                       <td>${product.sold}</td>
                       <td>{product.sold_percentage}%</td>
                       <td>${product.average_sales_price}</td>
-                      <td>{product.void}</td>
                       <td>{product.total_sales}</td>
+                      <td>{product.void}</td>
                       <td>{product.inv_on_hand}</td>
                       <td>{product.gross_profit}</td>
                       <td>{product.gross_profit_percentage}</td>

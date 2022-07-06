@@ -662,9 +662,9 @@ function Product() {
                                       {sellerData?.map((item, index) => {
                                         return (
                                           <tr key={index}>
-                                            <td>
-                                              <div className="unit_box">
-                                                {index === 0 ? (
+                                            {index === 0 ? (
+                                              <td rowSpan={sellerData.length}>
+                                                <div className="unit_box">
                                                   <>
                                                     <span>
                                                       <img
@@ -680,11 +680,11 @@ function Product() {
                                                     </Link>
                                                     <br />
                                                   </>
-                                                ) : (
-                                                  ""
-                                                )}
-                                              </div>
-                                            </td>
+                                                </div>
+                                              </td>
+                                            ) : (
+                                              ""
+                                            )}
                                             <td>
                                               <div className="unit_data">
                                                 <span>{item.units.unit}</span>

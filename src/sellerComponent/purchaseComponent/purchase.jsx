@@ -301,12 +301,14 @@ function Purchase() {
                         <td>{item.supplier.business_trading_name}</td>
                         <td>{item.type}</td>
                         <td>
-                          <Link to={`/create-consignment/${item._id}`}>
+                          <Link
+                            to={`/create-consignment/${item._id}`}
+                            className="text-white"
+                          >
                             <span
                               style={{
                                 cursor: "pointer",
                                 fontWeight: "600",
-                                color: "#fff!important",
                               }}
                             >
                               {" "}

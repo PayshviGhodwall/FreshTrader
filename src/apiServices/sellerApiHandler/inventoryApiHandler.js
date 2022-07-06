@@ -129,3 +129,52 @@ export async function updateOverselling(formData) {
     return { error };
   }
 }
+export async function adjustInventory(formData) {
+  try {
+    const { data } = await httpService.post(
+      `${process.env.REACT_APP_APIENDPOINT}/seller/adjustInventory`,
+      formData
+    );
+    console.log(data);
+    if (!data.error) {
+      toast.success(data.message);
+    } else toast.error(data.message);
+    return { data };
+  } catch (error) {
+    if (error.response) toast.error(error.response.data.message);
+    return { error };
+  }
+}
+export async function adjustCarryOver(formData) {
+  try {
+    const { data } = await httpService.post(
+      `${process.env.REACT_APP_APIENDPOINT}/seller/adjustCarryOver`,
+      formData
+    );
+    console.log(data);
+    if (!data.error) {
+      toast.success(data.message);
+    } else toast.error(data.message);
+    return { data };
+  } catch (error) {
+    if (error.response) toast.error(error.response.data.message);
+    return { error };
+  }
+}
+
+export async function undoInventory(formData) {
+  try {
+    const { data } = await httpService.post(
+      `${process.env.REACT_APP_APIENDPOINT}/seller/undoInventory`,
+      formData
+    );
+    console.log(data);
+    if (!data.error) {
+      toast.success(data.message);
+    } else toast.error(data.message);
+    return { data };
+  } catch (error) {
+    if (error.response) toast.error(error.response.data.message);
+    return { error };
+  }
+}
