@@ -50,7 +50,7 @@ function Setting() {
                 ) : (
                   ""
                 )}
-                {staff?.access?.includes(12) || !staff ? (
+                {/* {staff?.access?.includes(12) || !staff ? (
                   <div class="px-lg-4 col-xl-4 col-lg-4 col-md-6 mb-md-4 mb-3 d-flex align-items-stretch">
                     <Link class="header_menus_box d-block" to="/pos-layout">
                       <div class="menus_icon">
@@ -70,7 +70,7 @@ function Setting() {
                   </div>
                 ) : (
                   ""
-                )}{" "}
+                )}{" "} */}
                 <div class="px-lg-4 col-xl-4 col-lg-4 col-md-6 mb-md-4 mb-3 d-flex align-items-stretch">
                   <Link class="header_menus_box d-block" to="/station-device">
                     <div class="menus_icon">
