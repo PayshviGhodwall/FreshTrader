@@ -14,6 +14,7 @@ function CreateNewOrderDetails() {
   const [variety, setVariety] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState(0);
+  const [seller, setSeller] = useState({});
 
   useEffect(() => {
     getOrders();
@@ -35,8 +36,10 @@ function CreateNewOrderDetails() {
       ];
       setVariety(list);
       setOrderDetails(data.results.products);
+      setSeller(data.results.seller);
     }
   };
+  console.log(filter);
 
   const getTypes = (varietyId) => {
     const types = orderDetails.filter(
@@ -77,13 +80,13 @@ function CreateNewOrderDetails() {
             <header class="freshtrader_header">
               <div class="row w-100 align-items-center">
                 <div class="col-auto">
-                  <Link class="back-btn" to="/buyer/orders">
+                  <Link class="back-btn" to="/buyer/create-new-order">
                     <img src="/assets/img/back-btn.png" alt="" />
                   </Link>
                 </div>
                 <div class="col px-0 text-center">
                   <a class="header_menus" href="javscript:;">
-                    Growers Produce
+                    {seller.business_trading_name}
                   </a>
                 </div>
                 <div class="col-auto">
@@ -242,7 +245,6 @@ function CreateNewOrderDetails() {
                   <input
                     type="radio"
                     id="check1"
-                    checked
                     name="check1"
                     onChange={() => setFilter(1)}
                   />

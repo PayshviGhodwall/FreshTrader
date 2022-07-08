@@ -187,3 +187,16 @@ export async function getMyPlan() {
     return { error };
   }
 }
+export async function getOrderCount() {
+  try {
+    const { data } = await buyerhtttpService.get(
+      `${process.env.REACT_APP_APIENDPOINT}/buyer/getOrderCount`
+    );
+    console.log(data);
+
+    return { data };
+  } catch (error) {
+    if (error.response) toast.error(error.response.data.message);
+    return { error };
+  }
+}

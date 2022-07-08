@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getOrderCount } from "../../apiServices/buyerApiHandler/buyerOrderApiHandler";
 
 function BuyerOrders() {
+  const [noti, setNoti] = useState({});
+  useEffect(() => {
+    getNotify();
+  }, []);
+
+  const getNotify = async () => {
+    const { data } = await getOrderCount();
+    if (!data.error) {
+      setNoti(data.results);
+    }
+  };
+
   return (
     <>
       <div class="fresh_trader_main">
@@ -35,7 +48,7 @@ function BuyerOrders() {
                       to="/buyer/create-new-order"
                     >
                       <div>
-                        <span>1</span>
+                        <span>0</span>
                         <label>
                           Create <br /> New Order{" "}
                         </label>
@@ -45,7 +58,7 @@ function BuyerOrders() {
                   <div class="col-6 d-flex align-items-stretch mb-3">
                     <Link class="order_menus_circle" to="/buyer/cart">
                       <div>
-                        <span>2</span>
+                        <span>{noti.cartCount}</span>
                         <label>Cart </label>
                       </div>
                     </Link>
@@ -53,7 +66,7 @@ function BuyerOrders() {
                   <div class="col-6 d-flex align-items-stretch mb-3">
                     <Link class="order_menus_circle" to="/buyer/send-order">
                       <div>
-                        <span>3</span>
+                        <span>{noti.sentOrderCount}</span>
                         <label>Sent Orders </label>
                       </div>
                     </Link>
@@ -61,7 +74,7 @@ function BuyerOrders() {
                   <div class="col-6 d-flex align-items-stretch mb-3">
                     <Link class="order_menus_circle" to="/buyer/counter-offer">
                       <div>
-                        <span>4</span>
+                        <span>{noti.counterOrderCount}</span>
                         <label>Counter Offers </label>
                       </div>
                     </Link>
@@ -69,7 +82,7 @@ function BuyerOrders() {
                   <div class="col-6 d-flex align-items-stretch mb-3">
                     <Link class="order_menus_circle" to="/buyer/confirm-order">
                       <div>
-                        <span>5</span>
+                        <span>{noti.confirmedOrderCount}</span>
                         <label>
                           Confirmed <br /> Orders{" "}
                         </label>
@@ -79,7 +92,7 @@ function BuyerOrders() {
                   <div class="col-6 d-flex align-items-stretch mb-3">
                     <Link class="order_menus_circle" to="/buyer/re-order">
                       <div>
-                        <span>6</span>
+                        <span>{noti.pastOrderCount}</span>
                         <label>
                           Reorder/Past <br /> Orders{" "}
                         </label>

@@ -71,7 +71,10 @@ function CreateNewOrder() {
                                 </td>
                                 <td>{item.seller.address_line1}</td>
                                 <td>
-                                  <a class="call_btn" href="javscript:;">
+                                  <a
+                                    class="call_btn"
+                                    href={`tel:${item.seller.phone_number}`}
+                                  >
                                     <img
                                       src="../assets/img/call_icon.png"
                                       alt=""

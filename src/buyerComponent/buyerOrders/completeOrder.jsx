@@ -99,7 +99,7 @@ function CompleteOrder() {
             <header class="freshtrader_header">
               <div class="row w-100 align-items-center">
                 <div class="col-auto">
-                  <Link class="back-btn" to="/buyer/orders">
+                  <Link class="back-btn" to="/buyer/cart">
                     <img src="/assets/img/back-btn.png" alt="" />
                   </Link>
                 </div>
@@ -247,6 +247,9 @@ function CompleteOrder() {
                                     <input
                                       class="form-control"
                                       type="date"
+                                      min={moment(new Date(Date.now())).format(
+                                        "yyyy-MM-DD"
+                                      )}
                                       value={moment(date).format("yyyy-MM-DD")}
                                       onChange={(e) => setDate(e.target.value)}
                                     />

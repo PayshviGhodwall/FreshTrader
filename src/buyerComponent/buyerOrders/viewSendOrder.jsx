@@ -42,7 +42,7 @@ function ViewSendOrder() {
             <header class="freshtrader_header">
               <div class="row w-100 align-items-center">
                 <div class="col-auto">
-                  <Link class="back-btn" to="/buyer/orders">
+                  <Link class="back-btn" to="/buyer/send-order">
                     <img src="/assets/img/back-btn.png" alt="" />
                   </Link>
                 </div>

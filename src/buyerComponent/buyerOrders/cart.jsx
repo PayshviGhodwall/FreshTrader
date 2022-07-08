@@ -43,7 +43,7 @@ function Cart() {
                     Cart
                   </a>
                 </div>
-                <div class="col-auto">
+                <div class="col-auto" style={{ visibility: "hidden" }}>
                   <a
                     class="back-btn"
                     data-bs-toggle="modal"

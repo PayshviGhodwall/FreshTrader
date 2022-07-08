@@ -59,7 +59,6 @@ function BuyerLogin() {
                       name="email"
                       id="email"
                       placeholder="Email"
-                      autoComplete="off"
                       {...register("email", { required: true })}
                     />
                     {errors?.email && (

@@ -7,7 +7,7 @@ import moment from "moment";
 function NewOrders() {
   const [data, setData] = useState([]);
   const [sortBy, setSortBy] = useState(0);
-  const [postPerPage, setPostPerPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageItem, setPageItem] = useState({});
   const [arrOfCurrButtons, setArrOfCurrButtons] = useState([]);
@@ -15,7 +15,6 @@ function NewOrders() {
 
   useEffect(() => {
     getOrder();
-    pagination();
   }, [sortBy, currentPage]);
 
   const getOrder = async () => {
@@ -27,6 +26,7 @@ function NewOrders() {
         }, 0);
       }
       setData(data.results.orders);
+      await pagination(data.results.orders);
     }
   };
 
@@ -39,13 +39,15 @@ function NewOrders() {
     });
   };
 
-  const setPageNo = () => {
-    const numOfPages = Math.ceil(data?.length / postPerPage);
+  const setPageNo = (item) => {
+    const numOfPages = Math.ceil(item?.length / postPerPage);
     let numOfButtons = [];
     for (let i = 1; i <= numOfPages; i++) {
       numOfButtons.push(i);
     }
-    setNumOfButtons({ numOfButtons });
+    console.log(numOfPages);
+    setNumOfButtons(numOfButtons);
+    return numOfButtons;
   };
 
   const prevPageClick = () => {
@@ -68,12 +70,13 @@ function NewOrders() {
     setCurrentPage(data);
   };
 
-  const pagination = () => {
-    setPageNo();
+  const pagination = (item) => {
+    const pageNo = setPageNo(item);
     setPageItem({
       start: 0,
       end: postPerPage,
     });
+    console.log(pageNo);
 
     let tempNumberOfButtons = [...arrOfCurrButtons];
 
@@ -81,18 +84,18 @@ function NewOrders() {
     let dotsLeft = "... ";
     let dotsRight = " ...";
 
-    if (numOfButtons.length < 6) {
-      tempNumberOfButtons = numOfButtons;
+    if (pageNo.length < 6) {
+      tempNumberOfButtons = pageNo;
     } else if (currentPage >= 1 && currentPage <= 3) {
-      tempNumberOfButtons = [1, 2, 3, 4, dotsInitial, numOfButtons.length];
+      tempNumberOfButtons = [1, 2, 3, 4, dotsInitial, pageNo.length];
     } else if (currentPage === 4) {
-      const sliced = numOfButtons.slice(0, 5);
-      tempNumberOfButtons = [...sliced, dotsInitial, numOfButtons.length];
-    } else if (currentPage > 4 && currentPage < numOfButtons.length - 2) {
+      const sliced = pageNo.slice(0, 5);
+      tempNumberOfButtons = [...sliced, dotsInitial, pageNo.length];
+    } else if (currentPage > 4 && currentPage < pageNo.length - 2) {
       // from 5 to 8 -> (10 - 2)
-      const sliced1 = numOfButtons.slice(currentPage - 2, currentPage);
+      const sliced1 = pageNo.slice(currentPage - 2, currentPage);
       // sliced1 (5-2, 5) -> [4,5]
-      const sliced2 = numOfButtons.slice(currentPage, currentPage + 1);
+      const sliced2 = pageNo.slice(currentPage, currentPage + 1);
       // sliced1 (5, 5+1) -> [6]
       tempNumberOfButtons = [
         1,
@@ -100,12 +103,12 @@ function NewOrders() {
         ...sliced1,
         ...sliced2,
         dotsRight,
-        numOfButtons.length,
+        pageNo.length,
       ];
       // [1, '...', 4, 5, 6, '...', 10]
-    } else if (currentPage > numOfButtons.length - 3) {
+    } else if (currentPage > pageNo.length - 3) {
       // > 7
-      const sliced = numOfButtons.slice(numOfButtons.length - 4);
+      const sliced = pageNo.slice(pageNo.length - 4);
       // slice(10-4)
       tempNumberOfButtons = [1, dotsLeft, ...sliced];
     } else if (currentPage === dotsInitial) {
@@ -244,19 +247,19 @@ function NewOrders() {
                         Prev
                       </a>
                     </li>
-                    {arrOfCurrButtons?.map((data, index) => {
+                    {arrOfCurrButtons?.map((item, index) => {
                       return (
                         <li
                           key={index}
                           className={`dt-item ${
-                            currentPage === data ? "active" : ""
+                            currentPage === item ? "active" : ""
                           }`}
                         >
                           <a
                             className="dt-link"
-                            onClick={() => changeNumber(data)}
+                            onClick={() => changeNumber(item)}
                           >
-                            {data}
+                            {item}
                           </a>
                         </li>
                       );
